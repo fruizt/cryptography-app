@@ -1,20 +1,27 @@
-import './App.css';
-import AppBar from './components/appBar'
-import VerticalAppBar from './components/verticalAppBar'
 
+import "./App.scss"
+import Navbar from "./components/Navbar";
+import SideBar1 from "./components/sideBar1";
+import Sidebar from "./components/SideBar";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 function App() {
-  return (
-    <div className="App">
-      <AppBar></AppBar>
-      {/* <VerticalAppBar></VerticalAppBar> */}
-      <header className="App-header">
-        <p>
-          Aipos de cifrado uwu
-        </p>
-      </header>
-    </div>
-  );
+	return (
+		<Router>
+			<div className="App">
+				{/* <Navbar /> */}
+				<SideBar1/>
+				<div className="flex"></div>
+				  <Sidebar />
+          <div className="content">
+
+          </div>
+				<header className="App-header">
+					<p>texto</p>
+				</header>
+			</div>
+		</Router>
+	);
 }
 
 export default App;

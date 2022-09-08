@@ -71,8 +71,8 @@ export default function Navigation(props) {
   const content = {
     'brand': { image: 'nereus-assets/img/nereus-dark.png', width: 110 },
     'brand-mobile': { image: 'nereus-assets/img/nereus-light.png', width: 110 },
-    'link1': 'Section One',
-    'link2': 'Section Two',
+    'link1': 'Hill',
+    'link2': 'Vigenere',
     'link3': 'Section Three',
     'link4': 'Section Four',
     ...props.content
