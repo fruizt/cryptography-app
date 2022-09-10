@@ -1,17 +1,18 @@
 import { useState } from 'react';
 import React, { Component } from 'react'
-import { cipherText } from '../api_services/permutation';
 import axios from "axios";
 
-const encryptUrl="https://ciphers.herokuapp.com/permutation/encrypt"
-const decryptUrl="https://ciphers.herokuapp.com/permutation/decrypt"
-const suggestUrl="https://ciphers.herokuapp.com/permutation/suggestKey"
+const encryptUrl="https://ciphers.herokuapp.com/affine/encrypt"
+const decryptUrl="https://ciphers.herokuapp.com/affine/decrypt"
+const suggestUrl="https://ciphers.herokuapp.com/affine/suggestKey"
 
 
-const Permutation =()=> {
+const Affine =()=> {
+    const a=[1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25];
+    const b=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
     const [clearText,setClearText]=useState('');
-    const [keyValue,setkeyValue]=useState('');
-    const [sizeKey,setSizeKey]=useState('');
+    const [valueA,setValueA]=useState('1');
+    const [valueB,setValueB]=useState('');
     const [option,setOption]=useState('E');
     const [encryptText,setencryptText]=useState('');
     const [suggestKey,setsuggestKey]=useState('');
@@ -20,14 +21,15 @@ const Permutation =()=> {
         setClearText(val.target.value)
         console.log(clearText)
     };
-    const addKey=val=>{
-        setkeyValue(val.target.value)
+    const addValueA=val=>{
+        setValueA(val.target.value)
         console.log(val.target.value)
     };
-    const addSizeKey=val=>{
-        setSizeKey(val.target.value)
+    const addValueB=val=>{
+        setValueB(val.target.value)
         console.log(val.target.value)
     };
+    
     const addOption=val=>{
         setOption(val.target.value)
         console.log(val.target.value)
@@ -36,8 +38,8 @@ const Permutation =()=> {
     const cipher =()=>{
         let data={
             text: clearText,
-            key: keyValue,
-            key_size : parseInt(sizeKey)
+            a: parseInt(valueA),
+            b : parseInt(valueB)
         }
         console.log(data)
 
@@ -62,12 +64,9 @@ const Permutation =()=> {
     }
 
     const suggest =()=>{
-        let data={
-            m : parseInt(sizeKey)
-        }
-        console.log(parseInt(sizeKey))
+        
         axios
-            .post(suggestUrl, data)
+            .post(suggestUrl)
             .then((response) => {
                 setsuggestKey(response.data.result)
                 console.log(response.data.result);
@@ -85,7 +84,7 @@ const Permutation =()=> {
             <div className="row mb-5">
                 <div className="col-md-8 col-xl-6 text-center mx-auto">
                     <p className="fw-bold text-success mb-2">classNameical system</p>
-                    <h2 className="fw-bold">Permutation Encryption</h2>
+                    <h2 className="fw-bold">Affine Encryption</h2>
                 </div>
             </div>
             <div className="row d-flex justify-content-center">
@@ -96,11 +95,31 @@ const Permutation =()=> {
                                 <h6 className="fw-bold mb-0">Text:</h6><textarea onChange={addInput} className="form-control" id="message-1" name="message" rows="6" placeholder="Message" style={{height: "200px"}}></textarea>
                             </div>
                             <div className="mb-3">
-                                <h6 className="fw-bold mb-0">Key:</h6><input onChange={addKey} className="form-control" type="text" id="name-1" name="Key_encrypt" placeholder="example: 43521 (size 5)"/>
+                                <h6 className="fw-bold mb-0">Key:</h6><row>
+                                    <column>
+                                        <h6 className="fw-bold mb-0">a:</h6>
+                                        <select onChange={addValueA} className="form-select" name="option_encrypt">
+                                        {a.map((number) => {
+                                            return <option value={number} selected="">{number}</option>
+                                        }
+                                        )}
+                                            
+                                        </select>
+                                    </column>
+                                    <column>
+                                        <h6 className="fw-bold mb-0">b:</h6>
+                                        <select onChange={addValueB} className="form-select" name="option_encrypt">
+                                        {b.map((number) => {
+                                            return <option value={number} selected="">{number}</option>
+                                        }
+                                        )}
+                                            
+                                        </select>
+                                    </column>
+                                    
+                                </row>
                             </div>
-                            <div className="mb-3">
-                            <h6 className="fw-bold mb-0">Size key:</h6><input onChange={addSizeKey}  className="form-control" type="number" min="1"  id="name-1" name="Key_encrypt" placeholder="example: 5"/>
-                            </div>
+                            
                             <div className="mb-3">
                                 <h6 className="fw-bold mb-0">Option:</h6><select onChange={addOption} className="form-select" name="option_encrypt">
                                     <option value="E" selected="">Encrypt</option>
@@ -108,7 +127,7 @@ const Permutation =()=> {
                                 </select>
                             </div>
                             <div className="mb-3"></div>
-                            <div><div  onClick={cipher} className="btn btn-primary shadow d-block w-100" >Send </div></div>
+                            <div><div   onClick={cipher} className="btn btn-primary shadow d-block w-100" >Send </div></div>
                         </form>
                     </div>
                 </div>
@@ -121,7 +140,7 @@ const Permutation =()=> {
                             <div className="mb-3"></div>
                             <div className="mb-3"></div>
                             <div className="mb-3">
-                                <div><div onClick={suggest} className="btn btn-primary shadow d-block w-100" >Suggest Key</div></div>
+                                <div><div  onClick={suggest} className="btn btn-primary shadow d-block w-100" >Suggest Key</div></div>
                                 <div><input value={suggestKey} className="form-control" type="text" id="name-3" name="Key_encrypt" readOnly=""/></div>
                             </div>
                         </form>
@@ -168,4 +187,4 @@ const Permutation =()=> {
     )
 }
 
-export default Permutation
+export default Affine

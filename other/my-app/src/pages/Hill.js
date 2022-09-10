@@ -34,13 +34,13 @@ const Hill = () => {
                     <div>
                         <form className="p-3 p-xl-4" method="post">
                             <div className="mb-3">
-                                <h6 className="fw-bold mb-0">Text result:</h6><textarea className="form-control" id="message-3" name="message" rows="6" style={{height: "200px"}} readonly=""></textarea>
+                                <h6 className="fw-bold mb-0">Text result:</h6><textarea className="form-control" id="message-3" name="message" rows="6" style={{height: "200px"}} readOnly=""></textarea>
                             </div>
                             <div className="mb-3"></div>
                             <div className="mb-3"></div>
                             <div className="mb-3">
                                 <div><button className="btn btn-primary shadow d-block w-100" type="submit">Suggest Key</button></div>
-                                <div><input className="form-control" type="text" id="name-3" name="Key_encrypt" readonly=""/></div>
+                                <div><input className="form-control" type="text" id="name-3" name="Key_encrypt" readOnly=""/></div>
                             </div>
                         </form>
                     </div>
@@ -66,7 +66,7 @@ const Hill = () => {
                     <div>
                         <form className="p-3 p-xl-4" method="post">
                             <div className="mb-3">
-                                <h6 className="fw-bold mb-0">Text result:</h6><textarea className="form-control" id="message-4" name="message" rows="6" style={{height: "400px"}} readonly=""></textarea>
+                                <h6 className="fw-bold mb-0">Text result:</h6><textarea className="form-control" id="message-4" name="message" rows="6" style={{height: "400px"}} readOnly=""></textarea>
                             </div>
                             <div className="mb-3"></div>
                             <div className="mb-3"></div>
