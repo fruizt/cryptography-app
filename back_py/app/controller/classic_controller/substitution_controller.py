@@ -2,6 +2,7 @@ import sys
 
 #ENCRIPTA CON KEY
 def EncrSubstitution(text, key):
+    if (len(key) != 26): return 'key no valida'
     enc = ''
     alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     text = text.upper()
@@ -16,6 +17,7 @@ def EncrSubstitution(text, key):
 
 #DESENCRIPTA CON KEY
 def DecrSubstitutuon(text, key):
+    if (len(key) != 26): return 'key no valida'
     dec = ''
     alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     text = text.upper()

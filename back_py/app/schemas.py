@@ -11,3 +11,9 @@ class PermutationRequest(BaseModel):
 
 class SuggestKeyRequest(BaseModel):
     m: int
+    
+class SubstitutionRequest(BaseModel):
+    text: str
+    key: str 
+    
+    

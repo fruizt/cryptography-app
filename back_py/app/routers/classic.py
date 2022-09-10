@@ -38,17 +38,17 @@ async def ceasar_decypher(item:Item):
 
 
 ##permutation
-@router.post("/permutation/encrypt/")
+@router.post("/encrypt/permutation")
 def read_item(data : PermutationRequest):
-    text_cript=permutation(data.text,data.key,int(data.key_size))
+    text_cript=permutation(data.text,data.key,len(data.key))
     return {"result":text_cript.upper()}
 
-@router.post("/permutation/decrypt/")
+@router.post("/decrypt/permutation")
 def read_item(data : PermutationRequest):
     text_cript=decrypt_permutation(data.text,data.key,int(data.key_size))
     return {"result":text_cript.upper()}
 
-@router.post("/permutation/suggestKey/")
+@router.post("/suggestKey/permutation")
 def read_item(data : SuggestKeyRequest):
     key=suggestKey(int(data.m))
     return {"result":key}
@@ -56,17 +56,17 @@ def read_item(data : SuggestKeyRequest):
 
 ##substitution
 @router.post("/encrypt/substitution")
-def read_item(data : PermutationRequest):
-    text_cript=permutation(data.text,data.key,int(data.key_size))
+def read_item(data : SubstitutionRequest):
+    text_cript=EncrSubstitution(data.text,data.key)
     return {"result":text_cript.upper()}
 
 @router.post("/decrypt/substitution")
-def read_item(data : PermutationRequest):
-    text_cript=decrypt_permutation(data.text,data.key,int(data.key_size))
+def read_item(data : SubstitutionRequest):
+    text_cript=DecrSubstitutuon(data.text,data.key)
     return {"result":text_cript.upper()}
 
 @router.post("/analyse/substitution")
-def read_item(data : SuggestKeyRequest):
+def read_item(data : SubstitutionRequest):
     key=suggestKey(int(data.m))
     return {"result":key}
 
