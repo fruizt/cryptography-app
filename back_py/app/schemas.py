@@ -16,4 +16,7 @@ class SubstitutionRequest(BaseModel):
     text: str
     key: str 
     
-    
+class HillRequest(BaseModel):
+    size: int
+    key: str
+    string: str

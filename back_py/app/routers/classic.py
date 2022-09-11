@@ -78,6 +78,18 @@ def read_item(data : SubstitutionRequest):
     key=suggestKey(int(data.m))
     return {"result":key}
 
+##Hill
+@router.post("/encrypt/hill")
+def read_item(data : HillRequest):
+    text_cript=Hill_encript_str(data.size,data.key,data.string)
+    return {"result":text_cript.upper()}
+
+@router.post("/decrypt/hill")
+def read_item(data : HillRequest):
+    text_cript=Hill_decript_str(data.size,data.key,data.string)
+    return {"result":text_cript.upper()}
+
+
 
 #############model
 #https://www.geeksforgeeks.org/caesar-cipher-in-cryptography/

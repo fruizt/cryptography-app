@@ -51,6 +51,22 @@ def modInv(a,p):          # Finds the inverse of a mod p, if it exists
       return i
   raise ValueError(str(a)+" has no inverse mod "+str(p))
 
+def minor(A,i,j):    # Return matrix A with the ith row and jth column deleted
+  A=np.array(A)
+  minor=np.zeros(shape=(len(A)-1,len(A)-1))
+  p=0
+  for s in range(0,len(minor)):
+    if p==i:
+      p=p+1
+    q=0
+    for t in range(0,len(minor)):
+      if q==j:
+        q=q+1
+      minor[s][t]=A[p][q]
+      q=q+1
+    p=p+1
+  return minor
+
 def Hill_encript_str(size, key, string):
   key = text_to_key(key)
   string = string.replace(' ', '')
