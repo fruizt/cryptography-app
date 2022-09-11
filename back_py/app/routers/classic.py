@@ -12,29 +12,37 @@ router = APIRouter(
 ##ceasar
 @router.post("/encrypt/ceasar")
 async def ceasar_cypher(item:Item):
-    return {"text cipher":decrypt_ceasar(item.text,item.key)}
+    text = verify_string(item.text.upper())
+    return {"text cipher":encrypt_ceasar(text,item.key)}
 
 @router.post("/decrypt/ceasar")
 async def ceasar_decypher(item:Item):
-    return {"text decipher":decrypt_ceasar(item.text,item.key)}
+    text = verify_string(item.text.upper())
+    return {"text decipher":decrypt_ceasar(text,item.key)}
 
 @router.post("/analyse/ceasar")
 async def ceasar_decypher(item:Item):
-    return {"text decipher":analyse_ceasar(item.text)}
+    text = verify_string(item.text.upper())
+    return {"text decipher":analyse_ceasar(text)}
 
 
 ##vigenere
 @router.post("/encrypt/vigenere")
 async def vigenere_cypher(item:Item):
-    return {"text cipher":encrypt_vigenere(item.text,item.key)}
+    text = verify_string(item.text.upper())
+    key = verify_string(item.key.upper())
+    return {"text cipher":encrypt_vigenere(text,key)}
 
 @router.post("/decrypt/vigenere")
-async def ceasar_decypher(item:Item):
-    return {"text decipher":analyse_ceasar(item.text)}
+async def vigenere_decypher(item:Item):
+    text = verify_string(item.text.upper())
+    key = verify_string(item.key.upper())
+    return {"text decipher":decrypt_vigenere(text,key)}
 
 @router.post("/analyse/vigenere")
-async def ceasar_decypher(item:Item):
-    return {"text decipher":analyse_ceasar(item.text)}
+async def vigenere_analysis(item:Item):
+    text = verify_string(item.text.upper())
+    return {"text decipher":analyse_vigenere(text)}
 
 
 ##permutation

@@ -27,22 +27,20 @@ def decrypt_ceasar(text,s:int):
     return result
 
 def analyse_ceasar(text):
-    text = text.lower()
     LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    letters = 'abcdefghijklmnopqrstuvwxyz'
     answer = []
-    for key in range(len(letters)):
+    for key in range(len(LETTERS)):
         translated = ''
         
         for symbol in text:
-            if symbol in letters:
-                num = letters.find(symbol)
+            if symbol in LETTERS:
+                num = LETTERS.find(symbol)
                 num = num - key
                 
                 if num < 0:
-                    num = num + len(letters)
+                    num = num + len(LETTERS)
                     
-                translated = translated + letters[num]
+                translated = translated + LETTERS[num]
             
             else:
                 translated = translated + symbol
@@ -50,3 +48,10 @@ def analyse_ceasar(text):
         #print('Key #%s: %s' % (key, translated))
         answer.append({"translated":translated,"key":key})
     return answer
+
+def verify_string(text):
+    text_ = ''
+    for element in text:
+        if ord(element)>64 and ord(element)<91:
+            text_ = text_ + element
+    return text_
