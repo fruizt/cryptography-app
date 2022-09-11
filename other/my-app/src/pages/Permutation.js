@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import React, { Component } from 'react'
+<<<<<<< Updated upstream
 // import { cipherText } from '../api_services/permutation';
+=======
+>>>>>>> Stashed changes
 import axios from "axios";
 
 const encryptUrl="https://ciphers.herokuapp.com/permutation/encrypt"

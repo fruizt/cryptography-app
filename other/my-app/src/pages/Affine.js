@@ -5,7 +5,7 @@ import axios from "axios";
 const encryptUrl="https://ciphers.herokuapp.com/affine/encrypt"
 const decryptUrl="https://ciphers.herokuapp.com/affine/decrypt"
 const suggestUrl="https://ciphers.herokuapp.com/affine/suggestKey"
-
+const down='data:text/plain;charset=utf-8,' + encodeURIComponent("Hola")
 
 const Affine =()=> {
     const a=[1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25];
@@ -17,6 +17,7 @@ const Affine =()=> {
     const [encryptText,setencryptText]=useState('');
     const [suggestKey,setsuggestKey]=useState('');
 
+    
     const addInput=val=>{
         setClearText(val.target.value)
         console.log(clearText)
@@ -127,6 +128,7 @@ const Affine =()=> {
                                 </select>
                             </div>
                             <div className="mb-3"></div>
+                            
                             <div><div   onClick={cipher} className="btn btn-primary shadow d-block w-100" >Send </div></div>
                         </form>
                     </div>
@@ -155,11 +157,13 @@ const Affine =()=> {
             <div className="row d-flex justify-content-center">
                 <div className="col-md-6 col-xl-4">
                     <div>
-                        <form className="p-3 p-xl-4" method="post">
+                        <form className="p-3 p-xl-4">
                             <div className="mb-3">
                                 <h6 className="fw-bold mb-0">Text:</h6><textarea className="form-control" id="message-2" name="message" rows="6" placeholder="Message" style={{height: "200px"}}></textarea>
                             </div>
-                            <div><button className="btn btn-primary shadow d-block w-100" type="submit">Try</button></div>
+
+                            <div><button className="btn btn-primary shadow d-block w-100" >Try</button></div>
+                            <div><a href={down} download="text" className="btn btn-primary shadow d-block w-100" style={{marginTop:"20px"}}>Download all keys</a></div>
                         </form>
                     </div>
                 </div>
