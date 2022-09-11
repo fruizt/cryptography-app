@@ -7,6 +7,7 @@ import Substitution from "./pages/Substitution";
 import Permutation from "./pages/Permutation";
 import { NavLink } from "react-router-dom";
 import Affine from "./pages/Affine";
+import Vigenere from "./pages/Vigenere";
 
 function App() {
   return (
@@ -35,7 +36,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/classic" element={<Home />} />
           <Route path="/affine" element={<Affine />} />
-          <Route path="/vigenere" element={<Home />} />
+          <Route path="/vigenere" element={<Vigenere />} />
           <Route path="/shift" element={<Shift />} />
           <Route path="/hill" element={<Hill />} />
           <Route path="/substitution" element={<Substitution />} />

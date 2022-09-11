@@ -2,11 +2,11 @@ import { useState } from "react";
 import React, { Component } from "react";
 import axios from "axios";
 
-const encryptUrl = "http://localhost:8000/classic/encrypt/ceasar";
-const decryptUrl = "http://localhost:8000/classic/decrypt/ceasar";
+const encryptUrl = "http://localhost:8000/classic/encrypt/vigenere";
+const decryptUrl = "http://localhost:8000/classic/decrypt/vigenere";
 const analysisUrl = "http://127.0.0.1:8000/classic/analyse/ceasar";
 
-const Shift = () => {
+const Vigenere = () => {
 	const a = [
 		0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25,
 	];
@@ -27,7 +27,7 @@ const Shift = () => {
 		console.log(val.target.value);
 	};
 
-	const addValueA = (val) => {
+	const addInputForKey = (val) => {
 		setValueA(val.target.value);
 		console.log(val.target.value);
 	};
@@ -40,7 +40,7 @@ const Shift = () => {
 	const cipher = () => {
 		let data = {
 			text: clearText,
-			key: parseInt(valueA),
+			key: (valueA),
 		};
 		console.log(data);
 
@@ -100,20 +100,15 @@ const Shift = () => {
 									</div>
 									<div className="mb-3">
 										<h6 className="fw-bold mb-0">Key:</h6>
-										<row>
-											<column>
-												{/* <h6 className="fw-bold mb-0">a:</h6> */}
-												<select onChange={addValueA} className="form-select" name="option_encrypt">
-													{a.map((number) => {
-														return (
-															<option value={number} selected="">
-																{number}
-															</option>
-														);
-													})}
-												</select>
-											</column>
-										</row>
+										<textarea
+											onChange={addInputForKey}
+											className="form-control"
+											id="key-1"
+											name="key"
+											rows="6"
+											placeholder="Key"
+											style={{ height: "50px" }}
+										></textarea>
 									</div>
 
 									<div className="mb-3">
@@ -221,4 +216,4 @@ const Shift = () => {
 	);
 };
 
-export default Shift;
+export default Vigenere;

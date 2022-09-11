@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import React, { Component } from 'react'
-import { cipherText } from '../api_services/permutation';
+// import { cipherText } from '../api_services/permutation';
 import axios from "axios";
 
 const encryptUrl="https://ciphers.herokuapp.com/permutation/encrypt"
