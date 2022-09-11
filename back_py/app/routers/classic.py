@@ -74,9 +74,15 @@ def read_item(data : SubstitutionRequest):
     return {"result":text_cript.upper()}
 
 @router.post("/analyse/substitution")
-def read_item(data : SubstitutionRequest):
-    key=suggestKey(int(data.m))
-    return {"result":key}
+def read_item(data : SubstitutionAttackRequest):
+    print("------------")
+    text_cript=advancedAnalysis(data.text,data.iteration)
+    return {"result":text_cript}
+
+@router.post("/analyse/substitution/monograms")
+def read_item(data : SubstitutionMonogramRequest):
+    text_cript=FrecText(data.text)
+    return {"result":text_cript}
 
 
 #############model

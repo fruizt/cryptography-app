@@ -15,5 +15,12 @@ class SuggestKeyRequest(BaseModel):
 class SubstitutionRequest(BaseModel):
     text: str
     key: str 
+class SubstitutionAttackRequest(BaseModel):
+    text: str
+    iteration: int 
+
+class SubstitutionMonogramRequest(BaseModel):
+    text: str
+
     
     
