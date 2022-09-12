@@ -23,5 +23,17 @@ class SubstitutionAttackRequest(BaseModel):
 class SubstitutionMonogramRequest(BaseModel):
     text: str
 
-    
-    
+class HillImageRequest(BaseModel):
+    size: int
+    key: str
+    file: any
+
+class HillTextRequest(BaseModel):
+    size: int
+    key: str
+    string: str
+
+class HillAttackRequest(BaseModel):
+    size: int
+    unknown: str
+    known: str

@@ -84,6 +84,31 @@ def read_item(data : SubstitutionMonogramRequest):
     text_cript=FrecText(data.text)
     return {"result":text_cript}
 
+##Hill
+@router.post("/encrypt/hillimage")
+def read_item(data : HillImageRequest):
+    text_cript=Hill_encript_pic(data.size,data.key,data.file)
+    return {"result":text_cript}
+
+@router.post("/decrypt/hillimage")
+def read_item(data : HillImageRequest):
+    text_cript=Hill_decript_pic(data.size,data.key,data.file)
+    return {"result":text_cript}
+
+@router.post("/encrypt/hilltext")
+def read_item(data : HillTextRequest):
+    text_cript=Hill_encript_str(data.size,data.key,data.string)
+    return {"result":text_cript.upper()}
+
+@router.post("/decrypt/hilltext")
+def read_item(data : HillTextRequest):
+    text_cript=Hill_decript_str(data.size,data.key,data.string)
+    return {"result":text_cript.upper()}
+
+@router.post("/analyse/hilltext")
+def read_item(data : HillAttackRequest):
+    text_cript=Hill_attack(data.size,data.unknown,data.known)
+    return {"result":text_cript}
 
 #############model
 #https://www.geeksforgeeks.org/caesar-cipher-in-cryptography/
