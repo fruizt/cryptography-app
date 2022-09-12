@@ -1,7 +1,11 @@
-from fastapi import APIRouter
+from cgitb import text
+from fastapi import APIRouter, File
+from fastapi.responses import FileResponse
 from app.schemas import *
-
+import base64
+from PIL import Image
 from app.controller.classic_controller_ import *
+from starlette.responses import StreamingResponse
 
 router = APIRouter(
     prefix="/classic",
@@ -93,7 +97,7 @@ def read_item(data : HillImageRequest):
 @router.post("/decrypt/hillimage")
 def read_item(data : HillImageRequest):
     text_cript=Hill_decript_pic(data.size,data.key,data.file)
-    return {"result":text_cript}
+    return {"result":text_cript} 
 
 @router.post("/encrypt/hilltext")
 def read_item(data : HillTextRequest):
@@ -109,6 +113,16 @@ def read_item(data : HillTextRequest):
 def read_item(data : HillAttackRequest):
     text_cript=Hill_attack(data.size,data.unknown,data.known)
     return {"result":text_cript}
+
+@router.post("/hill")
+def read_item(file : bytes = File(...)):
+    print(type(file))
+    
+    text_cript=Hill_encript_pic(3,"1,0,0,0,1,0,0,0,1",file)
+    print(type(text_cript))
+    encoded = base64.b64encode(open("aaa.png", "rb").read())
+    print(encoded.decode()[:5])
+    return {"filename": "photo.png", "filedata": 'data:image/png;base64,{}'.format(encoded.decode())}
 
 #############model
 #https://www.geeksforgeeks.org/caesar-cipher-in-cryptography/

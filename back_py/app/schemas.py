@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-
+from fastapi import File
 class Item(BaseModel):
     text: str
     # key: int | str | None = None 
@@ -26,7 +26,7 @@ class SubstitutionMonogramRequest(BaseModel):
 class HillImageRequest(BaseModel):
     size: int
     key: str
-    file: any
+    file:  bytes = File(...)
 
 class HillTextRequest(BaseModel):
     size: int
