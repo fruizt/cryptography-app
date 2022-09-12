@@ -72,7 +72,7 @@ def modInv(a,p):          # Finds the inverse of a mod p, if it exists
 
 def Hill_encript_pic(size, key, file_name):
   key = text_to_key(key)
-  img = Image.open(io.BytesIO(file_name))
+  img = Image.open(io.BytesIO(file_name)).convert("L")
 
   #img = cv2.imread(file_name, cv2.IMREAD_GRAYSCALE)
   img_num = np.array(img)
@@ -97,7 +97,7 @@ def Hill_encript_pic(size, key, file_name):
     img_res = np.append(img_res,np.zeros(img_size-(img_res.shape[0]%img_size)))
 
   img_res = img_res.reshape(int(img_res.shape[0]/img_size), img_size)
-
+  img_res = img_res.astype(np.uint8)
   temporal = Image.fromarray(img_res).convert("L")
   temporal.save("aaa.png")
 
@@ -110,7 +110,7 @@ def Hill_encript_pic(size, key, file_name):
 
 def Hill_decript_pic(size, key, file_name):
   key = text_to_key(key)
-  img = Image.open(io.BytesIO(file_name))
+  img = Image.open(io.BytesIO(file_name)).convert("L")
   img = np.array(img)
   
   #img = cv2.imread(file_name, cv2.IMREAD_GRAYSCALE)
@@ -139,7 +139,8 @@ def Hill_decript_pic(size, key, file_name):
     img_res = img_res[0:1+val-(size-(val%size))]
 
   img_res = img_res.reshape(img.shape[1], img.shape[1])
-
+  img_res = img_res.astype(np.uint8)
+  
   temporal = Image.fromarray(img_res).convert("L")
   temporal.save("aa2.png")
 
