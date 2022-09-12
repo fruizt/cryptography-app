@@ -7,8 +7,6 @@ from fastapi.staticfiles import StaticFiles
 app = FastAPI()
 app.include_router(classic.router)
 
-
-
 origins = [
     "http://localhost.tiangolo.com",
     "https://localhost.tiangolo.com",

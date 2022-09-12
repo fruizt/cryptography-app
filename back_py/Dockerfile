@@ -8,7 +8,13 @@ COPY ./quadgram.txt /app
 # 
 WORKDIR /app
 # 
-RUN pip install -r requirements.txt
-# 
+# RUN apt-get update && \
+#       apt-get -y install sudo
+# # 
+# RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
 
+# USER docker
+# RUN sudo usermod -aG docker $(whoami)
+
+RUN pip install -r requirements.txt
 CMD ["uvicorn", "main:app", "--host=0.0.0.0", "--port=80","--reload"]

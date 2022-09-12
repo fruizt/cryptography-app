@@ -5,6 +5,10 @@ class Item(BaseModel):
     # key: int | str | None = None 
     key: int
     
+class VigenereRequest(BaseModel):
+    text: str
+    key: str
+    
 class PermutationRequest(BaseModel):
     text: str
     key: str
