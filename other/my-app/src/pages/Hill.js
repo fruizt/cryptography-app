@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const Hill = () => {
     const [selectedFile,setState]=useState(null);
-    const [keyValue,setkeyValue]=useState('');
+    const [imagevalue,setImage]=useState('');
     
     
     const onFileChange= (e)=>{
@@ -26,8 +26,10 @@ const Hill = () => {
                 }
             })
             .then((response) => {
-    
                 console.log(response);
+                console.log(response.data.filename)
+                setImage(response.data.filedata)
+                
             });
     }
 
@@ -83,6 +85,11 @@ const Hill = () => {
                     <p className="fw-bold text-success mb-2" style={{fontSize: "25px"}}>Cryptoanalysis</p>
                 </div>
             </div>
+            <div className="row mb-5" style= {{marginTop: "48px"}}>
+                <div className="col-md-8 col-xl-6 text-center mx-auto">
+                <img style={{maxWidth:"520px",maxHeight:"450px"}} src={imagevalue}></img>
+                </div>
+            </div>
             <div className="row d-flex justify-content-center">
                 <div className="col-md-6 col-xl-4">
                     <div>
@@ -102,6 +109,7 @@ const Hill = () => {
                 </div>
                 <div className="col-md-6 col-xl-4">
                     <div>
+                        
                         <form className="p-3 p-xl-4" method="post">
                             <div className="mb-3">
                                 <h6 className="fw-bold mb-0">Text result:</h6><textarea className="form-control" id="message-4" name="message" rows="6" style={{height: "400px"}} readOnly=""></textarea>
