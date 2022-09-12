@@ -2,7 +2,8 @@ from pydantic import BaseModel, Field
 
 class Item(BaseModel):
     text: str
-    key: int | str | None = None 
+    # key: int | str | None = None 
+    key: int
     
 class PermutationRequest(BaseModel):
     text: str

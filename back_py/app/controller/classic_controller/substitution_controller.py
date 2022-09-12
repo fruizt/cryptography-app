@@ -4,11 +4,12 @@ from collections import Counter
 import random
 import re
 
+
 class ngram_score(object):
     def __init__(self,ngramfile,sep=' '):
         ''' load a file containing ngrams and counts, calculate log probabilities '''
         self.ngrams = {}
-        for line in open(ngramfile):
+        for line in open("quadgram.txt","r"):
             key,count = line.split(sep) 
             self.ngrams[key] = int(count)
         self.L = len(key)
@@ -29,7 +30,7 @@ class ngram_score(object):
 
 def advancedAnalysis(text, numberIter):
     text = re.sub('[^A-Z]','',text.upper())
-    fitness = ngram_score('quadgram.txt') # load our quadgram statistics
+    fitness = ngram_score(p) # load our quadgram statistics
     maxkey = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
     maxscore = -99e9
     parentscore,parentkey = maxscore,maxkey[:]

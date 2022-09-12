@@ -2,9 +2,12 @@ from fastapi import FastAPI
 import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
 from app.routers import classic
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 app.include_router(classic.router)
+
+
 
 origins = [
     "http://localhost.tiangolo.com",
@@ -28,4 +31,4 @@ async def root():
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app",port=8000,reload=True)
+    uvicorn.run("main:app",port=8000,reload=True,timeout_keep_alive=500)
