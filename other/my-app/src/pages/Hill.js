@@ -1,4 +1,36 @@
+import { useState } from 'react';
+import axios from 'axios';
+
 const Hill = () => {
+    const [selectedFile,setState]=useState(null);
+    const [keyValue,setkeyValue]=useState('');
+    
+    
+    const onFileChange= (e)=>{
+        setState(e.target.files[0])
+    }
+
+    
+    const onFileUpload = () => {
+    
+        // Create an object of formData
+        const formData= new FormData();
+        formData.append("file", selectedFile);
+        // Details of the uploaded file
+        console.log(selectedFile);
+        console.log({file:selectedFile});
+        axios
+            .post("http://127.0.0.1:8000/classic/hill", formData, {
+                headers: {
+                  'Content-Type': 'multipart/form-data'
+                }
+            })
+            .then((response) => {
+    
+                console.log(response);
+            });
+    }
+
     return (
         <div>
     <section className="py-5">
@@ -54,10 +86,16 @@ const Hill = () => {
             <div className="row d-flex justify-content-center">
                 <div className="col-md-6 col-xl-4">
                     <div>
-                        <form className="p-3 p-xl-4" method="post">
+                        <form className="p-3 p-xl-4" >
                             <div className="mb-3">
                                 <h6 className="fw-bold mb-0">Text:</h6><textarea className="form-control" id="message-2" name="message" rows="6" placeholder="Message" style={{height: "200px"}}></textarea>
                             </div>
+                            
+
+                <div>
+                <input type="file" onChange={onFileChange} />
+                    <div onClick={onFileUpload} className="btn btn-primary shadow d-block w-100" >Upload!</div></div>
+
                             <div><button className="btn btn-primary shadow d-block w-100" type="submit">Try</button></div>
                         </form>
                     </div>
