@@ -141,13 +141,14 @@ def Hill_decript_pic(size, key, file_name):
   img_res = img_res.reshape(img.shape[1], img.shape[1])
 
   temporal = Image.fromarray(img_res).convert("L")
+  temporal.save("aa2.png")
 
-  byte_io = io.BytesIO()
+  """ byte_io = io.BytesIO()
   temporal.save(byte_io, format = "PNG")
   png_buffer = byte_io.getvalue()
-  byte_io.close()
+  byte_io.close() """
 
-  return io.BytesIO(png_buffer)
+  return "a"
 
 def Hill_encript_str(size, key, string):
   key = text_to_key(key)
