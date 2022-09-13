@@ -2,9 +2,9 @@ import { useState } from "react";
 import React, { Component } from "react";
 import axios from "axios";
 
-const encryptUrl = "http://localhost:8000/classic/encrypt/vigenere";
-const decryptUrl = "http://localhost:8000/classic/decrypt/vigenere";
-const analysisUrl = "http://127.0.0.1:8000/classic/analyse/ceasar";
+const encryptUrl = "https://web-fastapi.azurewebsites.net/classic/encrypt/vigenere";
+const decryptUrl = "https://web-fastapi.azurewebsites.net/classic/decrypt/vigenere";
+const analysisUrl = "https://web-fastapi.azurewebsites.net/classic/analyse/ceasar";
 
 const Vigenere = () => {
 	const a = [
