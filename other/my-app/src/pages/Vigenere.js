@@ -3,12 +3,12 @@ import React, { Component } from "react";
 import axios from "axios";
 
 const testURL = 'http://localhost:8000'
-const prod = 'https://web-fastapi.azurewebsites.net/'
+const prod = 'https://web-backend.azurewebsites.net'
 
 const encryptUrl = prod+"/classic/encrypt/vigenere";
 const decryptUrl = prod+"/classic/decrypt/vigenere";
-const analysisUrl = testURL+"/classic/analyse/vigenere";
-const advancedUrl = testURL+"/classic/analyse/vigenereAdvanced";
+const analysisUrl = prod+"/classic/analyse/vigenere";
+const advancedUrl = prod+"/classic/analyse/vigenereAdvanced";
 
 const Vigenere = () => {
 	const a = [
@@ -71,6 +71,7 @@ const Vigenere = () => {
 	const analyse = () => {
 		let data = {
 			text: cryptoAnalysisText,
+			key:""
 		};
 		if (option2 === "B") {
 			axios.post(analysisUrl, data).then((response) => {

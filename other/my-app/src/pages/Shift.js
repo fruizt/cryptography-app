@@ -4,11 +4,11 @@ import axios from "axios";
 
 
 const testURL = 'http://localhost:8000'
-const prod = 'https://web-fastapi.azurewebsites.net/'
+const prod = 'https://web-backend.azurewebsites.net/'
 
 const encryptUrl = prod+"/classic/encrypt/ceasar";
 const decryptUrl = prod+"/classic/decrypt/ceasar";
-const analysisUrl = testURL+"/classic/analyse/ceasar";
+const analysisUrl = prod+"/classic/analyse/ceasar";
 
 const Shift = () => {
 	const a = [
@@ -65,6 +65,7 @@ const Shift = () => {
 	const analyse = () => {
 		let data = {
 			text: cryptoAnalysisText,
+			key:0
 		};
 
 		axios.post(analysisUrl, data).then((response) => {
