@@ -100,3 +100,4 @@ def vige_deci(string,KLEN):
             bestkey = rec[i][1]
             bestscore = score       
     print(bestscore,'Vigenere, klen',KLEN,':"'+bestkey+'",',Vigenere(bestkey).decipher(ctext))
+    return{'text':Vigenere(bestkey).decipher(ctext),'key':bestkey}
