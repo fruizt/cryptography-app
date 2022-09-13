@@ -33,7 +33,7 @@ const Home = () => {
             <div className="row">
                 <div className="col-md-8 col-xl-6 text-center mx-auto">
                     <p className="fw-bold text-success mb-2">Our Services</p>
-                    <h3 className="fw-bold">classNameical Encryption</h3>
+                    <h3 className="fw-bold">Classical Encryption</h3>
                 </div>
             </div>
             <div className="py-5 p-lg-5">
