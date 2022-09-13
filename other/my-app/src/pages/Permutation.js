@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 // import { cipherText } from '../api_services/permutation';
 import axios from "axios";
 
-const encryptUrl="https://ciphers.herokuapp.com/permutation/encrypt"
+const encryptUrl="http://127.0.0.1:8000/classic/encrypt/permutation"
 const decryptUrl="https://ciphers.herokuapp.com/permutation/decrypt"
 const suggestUrl="https://ciphers.herokuapp.com/permutation/suggestKey"
 

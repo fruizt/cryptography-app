@@ -3,9 +3,9 @@ import React, { Component } from 'react'
 // import { cipherText } from '../api_services/permutation';
 import axios from "axios";
 
-const encryptUrl="https://kryps-back.herokuapp.com/classic/encrypt/substitution"
-const decryptUrl="https://kryps-back.herokuapp.com/classic/decrypt/substitution"
-const suggestUrl="https://kryps-back.herokuapp.com/"
+const encryptUrl="http://127.0.0.1:8000/classic/encrypt/substitution"
+const decryptUrl="http://127.0.0.1:8000/classic/decrypt/substitution"
+const suggestUrl="http://127.0.0.1:8000/classic/suggest/substitution"
 const analysisAdvUrl="https://kryps-back.herokuapp.com/classic/analyse/substitution"
 const analysisUrl="https://kryps-back.herokuapp.com/classic/analyse/substitution/monograms"
 
@@ -94,19 +94,16 @@ const Substitution = () => {
         }    
     }
 
-    // const suggest =()=>{
-    //     let data={
-    //         m : parseInt(sizeKey)
-    //     }
-    //     console.log(parseInt(sizeKey))
-    //     axios
-    //         .post(suggestUrl, data)
-    //         .then((response) => {
-    //             setsuggestKey(response.data.result)
-    //             console.log(response.data.result);
-    //         });
+     const suggest =()=>{
+
+         axios
+             .post(suggestUrl)
+             .then((response) => {
+                setsuggestKey(response.data.result)
+                console.log(response.data.result);
+            });
         
-    // }
+    }
     return(
         <div>
             
@@ -148,8 +145,8 @@ const Substitution = () => {
                             <div className="mb-3"></div>
                             <div className="mb-3"></div>
                             <div className="mb-3">
-                                <div><button className="btn btn-primary shadow d-block w-100" type="submit">Suggest Key</button></div>
-                                <div><input className="form-control" type="text" id="name-3" name="Key_encrypt" readOnly="" /></div>
+                                <div>< div onClick={suggest} className="btn btn-primary shadow d-block w-100" >Suggest Key</div></div>
+                                <div><input value={suggestKey} className="form-control" type="text" id="name-3" name="Key_encrypt" readOnly="" /></div>
                             </div> 
                         </form>
                     </div>
