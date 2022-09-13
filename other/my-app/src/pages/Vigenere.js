@@ -79,7 +79,7 @@ const Vigenere = () => {
 					<div className="row mb-5">
 						<div className="col-md-8 col-xl-6 text-center mx-auto">
 							<p className="fw-bold text-success mb-2">Classical Encryption system</p>
-							<h2 className="fw-bold">Shift Encryption</h2>
+							<h2 className="fw-bold">Vigenere Encryption</h2>
 						</div>
 					</div>
 					<div className="row d-flex justify-content-center">
