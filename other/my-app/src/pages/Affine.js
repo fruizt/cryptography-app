@@ -2,10 +2,12 @@ import { useState } from 'react';
 import React, { Component } from 'react'
 import axios from "axios";
 
-const encryptUrl="https://ciphers.herokuapp.com/affine/encrypt"
-const decryptUrl="https://ciphers.herokuapp.com/affine/decrypt"
-const suggestUrl="https://ciphers.herokuapp.com/affine/suggestKey"
-const down='data:text/plain;charset=utf-8,' + encodeURIComponent("Hola")
+const encryptUrl="http://127.0.0.1:8000/classic/encrypt/affine"
+const decryptUrl="http://127.0.0.1:8000/classic/decrypt/affine"
+const suggestUrl="http://127.0.0.1:8000/classic/suggestKey/affine"
+const atackUrl="http://127.0.0.1:8000/classic/smartAttack/affine"
+
+
 
 const Affine =()=> {
     const a=[1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25];
@@ -16,6 +18,9 @@ const Affine =()=> {
     const [option,setOption]=useState('E');
     const [encryptText,setencryptText]=useState('');
     const [suggestKey,setsuggestKey]=useState('');
+    const[textVal,setTextval]=useState('');
+    const[textResult,setTextResult]=useState('');
+    const[down,setDown]=useState('data:text/plain;charset=utf-8,' + encodeURIComponent("Hola"));
 
     
     const addInput=val=>{
@@ -35,12 +40,17 @@ const Affine =()=> {
         setOption(val.target.value)
         console.log(val.target.value)
     };
+
+    const addAtack=val=>{
+        setTextval(val.target.value)
+        console.log(val.target.value)
+    };
     
     const cipher =()=>{
         let data={
             text: clearText,
-            a: parseInt(valueA),
-            b : parseInt(valueB)
+            key: parseInt(valueA),
+            ky: parseInt(valueB)
         }
         console.log(data)
 
@@ -74,8 +84,20 @@ const Affine =()=> {
             });
         
     }
-
-    
+    const atack =()=>{
+        let data={
+            text: textVal,
+        }
+        console.log(data)
+        axios
+            .post(atackUrl, data)
+            .then((response) => {
+                setTextResult(response.data.result.smart)
+                setDown('data:text/plain;charset=utf-8,' + encodeURIComponent(response.data.result.complete))
+                console.log(response.data.result);
+            });
+    }
+   
 
     return(
         <div>
@@ -159,19 +181,19 @@ const Affine =()=> {
                     <div>
                         <form className="p-3 p-xl-4">
                             <div className="mb-3">
-                                <h6 className="fw-bold mb-0">Text:</h6><textarea className="form-control" id="message-2" name="message" rows="6" placeholder="Message" style={{height: "200px"}}></textarea>
+                                <h6 className="fw-bold mb-0">Text:</h6><textarea onChange={addAtack} className="form-control" id="message-2" name="message" rows="6" placeholder="Message" style={{height: "200px"}}></textarea>
                             </div>
 
-                            <div><button className="btn btn-primary shadow d-block w-100" >Try</button></div>
-                            <div><a href={down} download="text" className="btn btn-primary shadow d-block w-100" style={{marginTop:"20px"}}>Download all keys</a></div>
+                            <div><div onClick={atack} className="btn btn-primary shadow d-block w-100" >Try</div></div>
+                            <div ><a href={down} download="text" className="btn btn-primary shadow d-block w-100" style={{marginTop:"20px"}}>Download all keys</a></div>
                         </form>
                     </div>
                 </div>
                 <div className="col-md-6 col-xl-4">
                     <div>
-                        <form className="p-3 p-xl-4" method="post">
+                        <form className="p-3 p-xl-4" >
                             <div className="mb-3">
-                                <h6 className="fw-bold mb-0">Text result:</h6><textarea className="form-control" id="message-4" name="message" rows="6" style={{height: "400px"}} readOnly=""></textarea>
+                                <h6 className="fw-bold mb-0">Text result:</h6><textarea value={textResult} className="form-control" id="message-4" name="message" rows="6" style={{height: "400px"}} readOnly=""></textarea>
                             </div>
                             <div className="mb-3"></div>
                             <div className="mb-3"></div>
