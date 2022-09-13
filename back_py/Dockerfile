@@ -5,6 +5,7 @@ COPY ./app /app/app
 COPY ./requirements.txt /app
 COPY ./main.py /app
 COPY ./quadgram.txt /app
+COPY ./trigram.txt /app
 # 
 WORKDIR /app
 # 
