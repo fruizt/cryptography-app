@@ -28,9 +28,10 @@ class SubstitutionMonogramRequest(BaseModel):
     text: str
 
 class HillImageRequest(BaseModel):
+    file:  bytes = File(...)
     size: int
     key: str
-    file:  bytes = File(...)
+    
 
 class HillTextRequest(BaseModel):
     size: int
