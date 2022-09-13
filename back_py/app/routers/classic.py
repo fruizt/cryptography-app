@@ -102,13 +102,19 @@ def read_item(data : SubstitutionRequest):
 
 @router.post("/decrypt/substitution")
 def read_item(data : SubstitutionRequest):
-    text_cript=DecrSubstitutuon(data.text,data.key)
+    text = verify_string(data.text.upper())
+    text_cript=DecrSubstitutuon(text,data.key)
     return {"result":text_cript.upper()}
 
 @router.post("/analyse/substitution")
 def read_item(data : SubstitutionAttackRequest):
-    print("------------")
-    text_cript=advancedAnalysis(data.text,data.iteration)
+    text = verify_string(data.text.upper())
+    text_cript=advancedAnalysis(text,data.iteration)
+    return {"result":text_cript}
+
+@router.post("/suggest/substitution")
+def read_item():
+    text_cript=RandomKey()
     return {"result":text_cript}
 
 @router.post("/analyse/substitution/monograms")
@@ -118,14 +124,41 @@ def read_item(data : SubstitutionMonogramRequest):
 
 ##Hill
 @router.post("/encrypt/hillimage")
-def read_item(data : HillImageRequest):
-    text_cript=Hill_encript_pic(data.size,data.key,data.file)
-    return {"result":text_cript}
+def read_item(file:  bytes = File(...),size=2 ,key="0,1,1,0"):
+
+    text_cript=Hill_encript_pic(int(size),key,file)
+
+    encoded = base64.b64encode(open("encrypt.png", "rb").read())
+    
+    return {"filename": "photo.png", "filedata": 'data:image/png;base64,{}'.format(encoded.decode())}
+    
 
 @router.post("/decrypt/hillimage")
-def read_item(data : HillImageRequest):
-    text_cript=Hill_decript_pic(data.size,data.key,data.file)
-    return {"result":text_cript} 
+def read_item(file:  bytes = File(...),size=2 ,key="0,1,1,0"):
+    text_cript=Hill_decript_pic(int(size),key,file)
+    print(type(text_cript))
+    encoded = base64.b64encode(open("decrypt.png", "rb").read())
+    
+    return {"filename": "photo.png", "filedata": 'data:image/png;base64,{}'.format(encoded.decode())}
+@router.post("/showImage")
+def read_item(file : bytes = File(...)):
+    temporal=Image.open(io.BytesIO(file))
+    temporal.save("show.png")
+
+    encoded = base64.b64encode(open("show.png", "rb").read())
+    
+    return {"filename": "photo.png", "filedata": 'data:image/png;base64,{}'.format(encoded.decode())}
+@router.post("/suggest/hill")
+def readd_item(data : SuggestKeyRequest):
+    print("-----ddd----")
+    text_cript=random_key1(data.m,26)
+    text_cript=",".join([",".join(map(str,list(i))) for i in text_cript])
+    print(type(text_cript))
+    
+    return {"result":text_cript}
+    
+
+
 
 @router.post("/encrypt/hilltext")
 def read_item(data : HillTextRequest):
@@ -142,24 +175,6 @@ def read_item(data : HillAttackRequest):
     text_cript=Hill_attack(data.size,data.unknown,data.known)
     return {"result":text_cript}
 
-@router.post("/hill")
-def read_item(file : bytes = File(...)):
-    print(type(file))
-    
-    text_cript=Hill_decript_pic(3,"6,24,1,13,16,10,20,17,15",file)
-    print(type(text_cript))
-    encoded = base64.b64encode(open("aa2.png", "rb").read())
-    
-    return {"filename": "photo.png", "filedata": 'data:image/png;base64,{}'.format(encoded.decode())}
-@router.post("/hill2")
-def read_item(file : bytes = File(...)):
-    print(type(file))
-    
-    text_cript=Hill_decript_pic(3,"6,24,1,13,16,10,20,17,15",file)
-    print(type(text_cript))
-    encoded = base64.b64encode(open("aa2.png", "rb").read())
-    print(encoded.decode()[:5])
-    return {"filename": "photo.png", "filedata": 'data:image/png;base64,{}'.format(encoded.decode())}
 
 #############model
 #https://www.geeksforgeeks.org/caesar-cipher-in-cryptography/

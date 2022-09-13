@@ -22,7 +22,7 @@ def normal_numbers(x,n,state):
     barisan.append(int(x*1000%state)) # take 3 first digit after decimal point
   return barisan 
 
-def random_key(size,state):
+def random_key1(size,state):
   random_list = normal_numbers(0.0001,2000,state)
   random_list[random.randint(1000,2000-1)]
 
@@ -35,7 +35,7 @@ def random_key(size,state):
   try:
     modMatInv(key_rand,state)
   except:
-    key_rand = random_key(size,state)
+    key_rand = random_key1(size,state)
   
   return key_rand
 
@@ -99,7 +99,7 @@ def Hill_encript_pic(size, key, file_name):
   img_res = img_res.reshape(int(img_res.shape[0]/img_size), img_size)
   img_res = img_res.astype(np.uint8)
   temporal = Image.fromarray(img_res).convert("L")
-  temporal.save("aaa.png")
+  temporal.save("encrypt.png")
 
   """ byte_io = io.BytesIO()
   temporal.save(byte_io, format = "PNG")
@@ -142,7 +142,7 @@ def Hill_decript_pic(size, key, file_name):
   img_res = img_res.astype(np.uint8)
   
   temporal = Image.fromarray(img_res).convert("L")
-  temporal.save("aa2.png")
+  temporal.save("decrypt.png")
 
   """ byte_io = io.BytesIO()
   temporal.save(byte_io, format = "PNG")
