@@ -139,3 +139,8 @@ def DecrSubstitutuon(text, key):
         else:
             dec += lett
     return dec
+
+def RandomKey():
+    key = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    key = ''.join(random.sample(key,len(key)))
+    return key
