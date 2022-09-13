@@ -2,9 +2,13 @@ import { useState } from "react";
 import React, { Component } from "react";
 import axios from "axios";
 
-const encryptUrl = "https://web-fastapi.azurewebsites.net/classic/encrypt/ceasar";
-const decryptUrl = "https://web-fastapi.azurewebsites.net/classic/decrypt/ceasar";
-const analysisUrl = "https://web-fastapi.azurewebsites.net/classic/analyse/ceasar";
+
+const testURL = 'http://localhost:8000'
+const prod = 'https://web-fastapi.azurewebsites.net/'
+
+const encryptUrl = prod+"/classic/encrypt/ceasar";
+const decryptUrl = prod+"/classic/decrypt/ceasar";
+const analysisUrl = testURL+"/classic/analyse/ceasar";
 
 const Shift = () => {
 	const a = [

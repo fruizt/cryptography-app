@@ -2,9 +2,13 @@ import { useState } from "react";
 import React, { Component } from "react";
 import axios from "axios";
 
-const encryptUrl = "https://web-fastapi.azurewebsites.net/classic/encrypt/vigenere";
-const decryptUrl = "https://web-fastapi.azurewebsites.net/classic/decrypt/vigenere";
-const analysisUrl = "https://web-fastapi.azurewebsites.net/classic/analyse/ceasar";
+const testURL = 'http://localhost:8000'
+const prod = 'https://web-fastapi.azurewebsites.net/'
+
+const encryptUrl = prod+"/classic/encrypt/vigenere";
+const decryptUrl = prod+"/classic/decrypt/vigenere";
+const analysisUrl = testURL+"/classic/analyse/vigenere";
+const advancedUrl = testURL+"/classic/analyse/vigenereAdvanced";
 
 const Vigenere = () => {
 	const a = [
@@ -13,6 +17,7 @@ const Vigenere = () => {
 	const [clearText, setClearText] = useState("");
 	const [valueA, setValueA] = useState("0");
 	const [option, setOption] = useState("E");
+	const [option2, setOption2] = useState("B");
 	const [encryptText, setencryptText] = useState("");
 	const [cryptoAnalysisText, setCryptoAnalysisText] = useState("");
 	const [encryptTextForAnalys, setEncryptTextForAnalys] = useState("");
@@ -34,6 +39,11 @@ const Vigenere = () => {
 
 	const addOption = (val) => {
 		setOption(val.target.value);
+		console.log(val.target.value);
+	};
+
+	const addOption2 = (val) => {
+		setOption2(val.target.value);
 		console.log(val.target.value);
 	};
 
@@ -62,14 +72,25 @@ const Vigenere = () => {
 		let data = {
 			text: cryptoAnalysisText,
 		};
+		if (option2 === "B") {
+			axios.post(analysisUrl, data).then((response) => {
+				console.log(">>response", response);
+				for (let x = 0; x < response.data.text.length; x++) console.log(response.data.text[x]);
+				let dat = { text: "try", key: 1 };
+				setEncryptTextForAnalys(JSON.stringify(response.data.text));
+				// console.log(response.data.text);
+			});
+		} else {
+			axios.post(advancedUrl, data).then((response) => {
+				console.log(">>response", response);
+				for (let x = 0; x < response.data.text.length; x++) console.log(response.data.text[x]);
+				let dat = { text: "try", key: 1 };
+				setEncryptTextForAnalys(JSON.stringify(response.data.text));
+				// console.log(response.data.text);
+			});
+		}
 
-		axios.post(analysisUrl, data).then((response) => {
-			console.log(">>response", response);
-			for (let x = 0; x < response.data.text.length; x++) console.log(response.data.text[x]);
-			let dat = { text: "try", key: 1 };
-			setEncryptTextForAnalys(JSON.stringify(response.data.text));
-			// console.log(response.data.text);
-		});
+		
 	};
 
 	return (
@@ -176,6 +197,15 @@ const Vigenere = () => {
 											placeholder="Message"
 											style={{ height: "200px" }}
 										></textarea>
+									</div>
+									<div className="mb-3">
+										<h6 className="fw-bold mb-0">Option:</h6>
+										<select onChange={addOption2} className="form-select" name="option_encrypt">
+											<option value="B" selected="">
+												Basic
+											</option>
+											<option value="A">Advanced</option>
+										</select>
 									</div>
 									<div>
 										<div onClick={analyse} className="btn btn-primary shadow d-block w-100">
