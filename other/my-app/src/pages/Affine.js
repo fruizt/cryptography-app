@@ -2,10 +2,10 @@ import { useState } from 'react';
 import React, { Component } from 'react'
 import axios from "axios";
 
-const encryptUrl="http://127.0.0.1:8000/classic/encrypt/affine"
-const decryptUrl="http://127.0.0.1:8000/classic/decrypt/affine"
-const suggestUrl="http://127.0.0.1:8000/classic/suggestKey/affine"
-const atackUrl="http://127.0.0.1:8000/classic/smartAttack/affine"
+const encryptUrl="https://web-backend-pypy.azurewebsites.net/classic/encrypt/affine"
+const decryptUrl="https://web-backend-pypy.azurewebsites.net/classic/decrypt/affine"
+const suggestUrl="https://web-backend-pypy.azurewebsites.net/classic/suggestKey/affine"
+const atackUrl="https://web-backend-pypy.azurewebsites.net/classic/smartAttack/affine"
 
 
 

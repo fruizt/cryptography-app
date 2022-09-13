@@ -3,11 +3,11 @@ import React, { Component } from 'react'
 // import { cipherText } from '../api_services/permutation';
 import axios from "axios";
 
-const encryptUrl="http://127.0.0.1:8000/classic/encrypt/substitution"
-const decryptUrl="http://127.0.0.1:8000/classic/decrypt/substitution"
-const suggestUrl="http://127.0.0.1:8000/classic/suggest/substitution"
-const analysisAdvUrl="https://kryps-back.herokuapp.com/classic/analyse/substitution"
-const analysisUrl="https://kryps-back.herokuapp.com/classic/analyse/substitution/monograms"
+const encryptUrl="https://web-backend-pypy.azurewebsites.net/classic/encrypt/substitution"
+const decryptUrl="https://web-backend-pypy.azurewebsites.net/classic/decrypt/substitution"
+const suggestUrl="https://web-backend-pypy.azurewebsites.net/classic/suggest/substitution"
+const analysisAdvUrl="https://web-backend-pypy.azurewebsites.net/classic/analyse/substitution"
+const analysisUrl="https://web-backend-pypy.azurewebsites.net/classic/analyse/substitution/monograms"
 
 const Substitution = () => {
     const [clearText,setClearText]=useState('');

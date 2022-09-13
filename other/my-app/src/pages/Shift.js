@@ -4,7 +4,7 @@ import axios from "axios";
 
 
 const testURL = 'http://localhost:8000'
-const prod = 'https://web-backend.azurewebsites.net/'
+const prod = 'https://web-backend-pypy.azurewebsites.net/'
 
 const encryptUrl = prod+"/classic/encrypt/ceasar";
 const decryptUrl = prod+"/classic/decrypt/ceasar";

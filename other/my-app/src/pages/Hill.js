@@ -2,16 +2,16 @@ import { useState } from 'react';
 import axios from 'axios';
 
 
-const encryptImageURL="http://127.0.0.1:8000/classic/encrypt/hillimage"
-const decryptImageURL="http://127.0.0.1:8000/classic/decrypt/hillimage"
-const suggestUrl="http://127.0.0.1:8000/classic/suggest/hill"
-const showUrl="http://127.0.0.1:8000/classic/showImage"
+const encryptImageURL="https://web-backend-pypy.azurewebsites.net/classic/encrypt/hillimage"
+const decryptImageURL="https://web-backend-pypy.azurewebsites.net/classic/decrypt/hillimage"
+const suggestUrl="https://web-backend-pypy.azurewebsites.net/classic/suggest/hill"
+const showUrl="https://web-backend-pypy.azurewebsites.net/classic/showImage"
 
-const encryptTextURL="http://127.0.0.1:8000/classic/encrypt/hilltext"
-const decryptTextURL="http://127.0.0.1:8000/classic/decrypt/hilltext"
-const suggestTextUrl="http://127.0.0.1:8000/classic/suggest/hill"
+const encryptTextURL="https://web-backend-pypy.azurewebsites.net/classic/encrypt/hilltext"
+const decryptTextURL="https://web-backend-pypy.azurewebsites.net/classic/decrypt/hilltext"
+const suggestTextUrl="https://web-backend-pypy.azurewebsites.net/classic/suggest/hill"
 
-const attackTextUrl="http://127.0.0.1:8000/classic/analyse/hilltext"
+const attackTextUrl="https://web-backend-pypy.azurewebsites.net/classic/analyse/hilltext"
 
 const Hill = () => {
 

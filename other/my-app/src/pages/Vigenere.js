@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import axios from "axios";
 
 const testURL = 'http://localhost:8000'
-const prod = 'https://web-backend.azurewebsites.net'
+const prod = 'https://web-backend-pypy.azurewebsites.net'
 
 const encryptUrl = prod+"/classic/encrypt/vigenere";
 const decryptUrl = prod+"/classic/decrypt/vigenere";
@@ -74,18 +74,19 @@ const Vigenere = () => {
 			key:""
 		};
 		if (option2 === "B") {
+			console.log("opcion B")
 			axios.post(analysisUrl, data).then((response) => {
 				console.log(">>response", response);
-				for (let x = 0; x < response.data.text.length; x++) console.log(response.data.text[x]);
-				let dat = { text: "try", key: 1 };
+				// for (let x = 0; x < response.data.text.length; x++) console.log(response.data.text[x]);
+				// let dat = { text: "try", key: 1 };
 				setEncryptTextForAnalys(JSON.stringify(response.data.text));
 				// console.log(response.data.text);
 			});
 		} else {
 			axios.post(advancedUrl, data).then((response) => {
-				console.log(">>response", response);
-				for (let x = 0; x < response.data.text.length; x++) console.log(response.data.text[x]);
-				let dat = { text: "try", key: 1 };
+				// console.log(">>response", response);
+				// for (let x = 0; x < response.data.text.length; x++) console.log(response.data.text[x]);
+				// let dat = { text: "try", key: 1 };
 				setEncryptTextForAnalys(JSON.stringify(response.data.text));
 				// console.log(response.data.text);
 			});

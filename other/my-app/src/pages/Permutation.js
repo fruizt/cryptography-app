@@ -3,15 +3,15 @@ import React, { Component } from 'react'
 // import { cipherText } from '../api_services/permutation';
 import axios from "axios";
 
-const encryptUrl="http://127.0.0.1:8000/classic/encrypt/permutation"
-const decryptUrl="https://ciphers.herokuapp.com/permutation/decrypt"
-const suggestUrl="https://ciphers.herokuapp.com/permutation/suggestKey"
+const encryptUrl="https://web-backend-pypy.azurewebsites.net/classic/encrypt/permutation"
+const decryptUrl="https://web-backend-pypy.azurewebsites.net/classic/decrypt/permutation"
+const suggestUrl="https://web-backend-pypy.azurewebsites.net/classic/suggestKey/permutation"
 
 
 const Permutation =()=> {
     const [clearText,setClearText]=useState('');
     const [keyValue,setkeyValue]=useState('');
-    const [sizeKey,setSizeKey]=useState('');
+    const [sizeKey,setSizeKey]=useState(2);
     const [option,setOption]=useState('E');
     const [encryptText,setencryptText]=useState('');
     const [suggestKey,setsuggestKey]=useState('');
