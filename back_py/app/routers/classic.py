@@ -47,6 +47,29 @@ async def vigenere_analysis(item:VigenereRequest):
     text = verify_string(item.text.upper())
     return {"text":attack(text)}
 
+##Affine
+@router.post("/encrypt/affine")
+def affine_cypher(data : AffineRequest):
+    text_cript=affin(data.text,data.key,data.ky)
+    return {"result":text_cript.upper()}
+
+@router.post("/decrypt/affine")
+def affine_decypher(data : AffineRequest):
+    
+    text_cript=decryptAffin(data.text,data.key,data.ky)
+    return {"result":text_cript.upper()}
+
+@router.post("/suggestKey/affine")
+def affine_suggest():
+    key=suggestKeyAffine()
+    return {"result":key}
+
+@router.post("/smartAttack/affine")
+def affine_suggest(data: SubstitutionMonogramRequest):
+    result=smartAnalysisAffine(data.text)
+    res2=completeAnalysisAffine(data.text)
+    return {"result":{"smart": result,"complete":res2}}
+
 
 ##permutation
 @router.post("/encrypt/permutation")

@@ -41,3 +41,11 @@ class HillAttackRequest(BaseModel):
     size: int
     unknown: str
     known: str
+
+class AffineRequest(BaseModel):
+    text: str
+    # key: int | str | None = None 
+    key: int
+    ky: int
+    
+
