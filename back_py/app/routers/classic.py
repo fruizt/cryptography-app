@@ -141,9 +141,9 @@ def read_item(data : HillAttackRequest):
 def read_item(file : bytes = File(...)):
     print(type(file))
     
-    text_cript=Hill_encript_pic(3,"1,5,6,3,1,20,40,5,67",file)
+    text_cript=Hill_decript_pic(3,"6,24,1,13,16,10,20,17,15",file)
     print(type(text_cript))
-    encoded = base64.b64encode(open("aaa.png", "rb").read())
+    encoded = base64.b64encode(open("aa2.png", "rb").read())
     
     return {"filename": "photo.png", "filedata": 'data:image/png;base64,{}'.format(encoded.decode())}
 @router.post("/hill2")
