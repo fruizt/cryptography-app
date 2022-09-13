@@ -47,6 +47,11 @@ async def vigenere_analysis(item:VigenereRequest):
     text = verify_string(item.text.upper())
     return {"text":attack(text)}
 
+@router.post("/analyse/vigenereAdvanced")
+async def vigenere_analysis(item:VigenereRequest):
+    text = verify_string(item.text.upper())
+    return {"text":attack_advanced(text)}
+
 ##Affine
 @router.post("/encrypt/affine")
 def affine_cypher(data : AffineRequest):
