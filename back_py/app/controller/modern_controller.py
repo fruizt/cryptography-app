@@ -1,0 +1,1 @@
+from app.controller.modern_controller.gammaPentagonal_controller import *

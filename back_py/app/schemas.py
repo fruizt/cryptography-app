@@ -1,3 +1,4 @@
+from cgitb import text
 from pydantic import BaseModel, Field
 from fastapi import File
 class Item(BaseModel):
@@ -48,5 +49,10 @@ class AffineRequest(BaseModel):
     # key: int | str | None = None 
     key: int
     ky: int
+
+class GammaPentagonalRequest(BaseModel):
+    permutation: str
+    text: str
+    init: str
     
 

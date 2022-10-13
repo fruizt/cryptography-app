@@ -1,11 +1,9 @@
 from cgitb import text
 from fastapi import APIRouter, File
-from fastapi.responses import FileResponse
 from app.schemas import *
 import base64
 from PIL import Image
 from app.controller.classic_controller_ import *
-from starlette.responses import StreamingResponse
 
 router = APIRouter(
     prefix="/classic",

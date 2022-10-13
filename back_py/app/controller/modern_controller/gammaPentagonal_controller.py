@@ -1,5 +1,4 @@
 from collections import defaultdict
-import plotly.graph_objects as go
 import numpy as np
 
 #Gamm-Pentagonal Class
@@ -10,10 +9,14 @@ class GammaPentagonal():
         self.permutation=permutation #permutation encrypt
         self.len_v=len_v
 
+        #set default values Encrypt
+        self.default_Encrypt=self.withOutMatch()
         #make some process
         self.scatter_plot,self.lines_plot,self.count=self.makeGraph()
-        self.permutation_graph,self.totalTrajectories,self.translation=self.preProcess()
+        self.permutation_graph=self.preProcess()
+        self.matrix_plot=self.plotMatrix()
     
+
     #function to generate data for plots graph Gamma
     #return point to scatter plot and lines plots and count of trajectories
     def makeGraph(self):
@@ -62,6 +65,7 @@ class GammaPentagonal():
                 count_dictionary[(new_Point[0],new_Point[1])]+=1
                 #change pivot node
                 flag=gen3[(new_Point[0],new_Point[1])]
+                #save the max slope 
                 gen3[(new_Point[0],new_Point[1])]=max(flag,m)
                 last=new_Point
             lines.append(line)
@@ -99,48 +103,57 @@ class GammaPentagonal():
         letters=[[(i+j)%26 for j in range(26)] for i in range(self.len_v)]
         letters=np.asarray(letters).T
 
-        #count number of trayectories of each class
-        number_trajectories=defaultdict(lambda: 0)
-        #apply translation
-        translation=np.asarray([[0 for i in range(self.len_v)] for i in range(26)])
-        
-        #count trayectories for each class and save translation
-        for i in range(26):
-            for j in range(self.len_v):
-                number_trajectories[letters[i][j]]+=self.count[(j,i)]
-        for i in range(26):
-            for j in range(self.len_v):
-                translation[i,j]=number_trajectories[letters[i][j]]
-                
+        #Apply permutation
+        permutation_transform=letters[:,self.permutation]
 
-        #permutation
+        #save count number of trayectories of each class
+        number_trajectories=defaultdict(lambda: 0)
         
-        #apply permutation
-        print(letters)
-        print(number_trajectories)
-        print(translation,"**/**/*/")
-        print((letters+translation)%26,"*****************")
-        translation_matrix=(letters+translation)%26
-        permutation_graph=translation_matrix[:,self.permutation]
-        translation=translation[:,self.permutation]
-        
-        
-        return permutation_graph,number_trajectories,translation
+        #count trayectories for each class 
+        for i in range(26):
+            for j in range(self.len_v):
+                number_trajectories[j+i]+=self.count[(j,i)]
+
+        #apply transformation of trajectories
+        for i in range(26):
+            for j in range(self.len_v):
+                permutation_transform[i][j]+=number_trajectories[j+i]
+                permutation_transform[i][j]%=26
+
+        #return final matrix
+        return permutation_transform
 
     def plotMatrix(self):
         #input: self.permutation_graph
         #convert permutation_graph to plot format
-        pass
+        x=[]
+        y=[]
+        texts=[]
+        for i in range(26):
+            for j in range(self.len_v):
+                num=self.permutation_graph[i,j]
+                x.append(j)
+                y.append(i)
+                texts.append(chr(num+97))
+        return [x,y,texts]
 
     def proccesText(self,text):
         text=''.join(e for e in text if e.isalnum())
         text=text.lower()
         textCiph=[ord(letter)-97 for letter in text]
         return textCiph
+
+    #function that create the dictionary for unfound values 
+    def withOutMatch(self):
+        defaultEncrypt={}
+        for i in range(26):
+            defaultEncrypt[i]=[11,25-i]
+        return defaultEncrypt
+
     def findPoint(self,num,column):
         count=0
         arraySearch=self.permutation_graph
-        result=[0,column]
+        result=self.default_Encrypt[num]
         while count<=self.len_v:
             for index in range(26):
                 if arraySearch[index,column]==num:
@@ -161,29 +174,27 @@ class GammaPentagonal():
     def decryptGammaPentagonal(self,code):
         text=[]
         info=self.permutation_graph
-        print(self.permutation_graph)
-        print(self.totalTrajectories)
-        print(code,"*******")
+        
         for cod in code: 
-            num=self.permutation_graph[cod[1],cod[0]]
-            print(num)
-            count_num=self.translation[cod[1],cod[0]]
-            print(count_num)
-            print("*------")
-            num_result=(num)%26
-            text.append(num_result)
-        print(text)
+            if cod[0]==11:
+                num=25+cod[1]%26
+            else:
+                num=self.permutation_graph[cod[1],cod[0]]
+            
+            
+            text.append(num)
+        
         decrypt=[chr(num+97) for num in text ]
         return "".join(decrypt)
             
 
-
-test=GammaPentagonal([0,0],[1,0,2,3,4,5,6,7,8,9],12,10)
-res=test.encryptGammaPentagonal("abcdez")
+""" 
+test=GammaPentagonal([0,0],[1,5,2,8,4,0,6,9,3,7],4,10)
+res=test.encryptGammaPentagonal("hello world to the new employess in the new world,.:")
 print(res)
 decr=test.decryptGammaPentagonal(res)
 print(decr)
-""" a,b=makeGraph()
+a,b=makeGraph()
 fig = go.Figure()
 fig.add_trace(go.Scatter(x=a[0],y=a[1],mode="markers",marker=dict(color="red")))
 
