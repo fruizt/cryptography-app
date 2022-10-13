@@ -8,6 +8,7 @@ import Permutation from "./pages/Permutation";
 import { NavLink } from "react-router-dom";
 import Affine from "./pages/Affine";
 import Vigenere from "./pages/Vigenere";
+import GammaPentagonal from "./pages/GammaPentagonal";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
           <Route path="/hill" element={<Hill />} />
           <Route path="/substitution" element={<Substitution />} />
           <Route path="/permutation" element={<Permutation />} />
+          <Route path="/gamma" element={<GammaPentagonal />} />
       </Routes>
       <footer className="bg-dark">
         <div className="container py-4 py-lg-5">

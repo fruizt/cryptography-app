@@ -147,7 +147,7 @@ class GammaPentagonal():
     def withOutMatch(self):
         defaultEncrypt={}
         for i in range(26):
-            defaultEncrypt[i]=[11,25-i]
+            defaultEncrypt[i]=[11,i]
         return defaultEncrypt
 
     def findPoint(self,num,column):
@@ -171,20 +171,21 @@ class GammaPentagonal():
             pointToFind=text[index]
             resultCipher.append(self.findPoint(pointToFind,index%self.len_v))
         return resultCipher
+    
     def decryptGammaPentagonal(self,code):
         text=[]
-        info=self.permutation_graph
-        
+        # print("code",code)
+        # print(self.permutation_graph)
         for cod in code: 
             if cod[0]==11:
-                num=25+cod[1]%26
+                num=(cod[1])%26
             else:
                 num=self.permutation_graph[cod[1],cod[0]]
-            
-            
             text.append(num)
-        
+            # print(">> num:",num)
+        # print(text)
         decrypt=[chr(num+97) for num in text ]
+        # print("decrypt:",decrypt)
         return "".join(decrypt)
             
 
