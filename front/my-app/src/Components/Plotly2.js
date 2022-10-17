@@ -304,7 +304,8 @@ const Plotly2 = (props) => {
 					
 				},
 			]}
-			layout={{ width: 600, height: 480, title: "dict" }}
+			layout={{ width: 600, height: 480, title: "Grid" }}
+			config={{responsive: true}}
 		/>
 	);
 };

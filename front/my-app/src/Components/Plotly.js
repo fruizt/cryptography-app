@@ -110,7 +110,7 @@ const Plotly = (props) => {
 	}
 
 	return (
-		<Plot data={trace} layout={{ width: 600, height: 480, title: "Grafo", showlegend: false }} />
+		<Plot data={trace} layout={{ width: 600, height: 480, title: "Graph", showlegend: false, plot_bgcolor:'#ffffff',paper_bgcolor:'#ffffff' }} config={{responsive: true}}/>
 	);
 };
 

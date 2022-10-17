@@ -74,6 +74,10 @@ const GammaPentagonal = () => {
 		});
 	};
 
+	const copyText = () => {
+		navigator.clipboard.writeText(encryptText)
+	}
+
 	return (
 		<div>
 			<section className="py-5">
@@ -135,6 +139,12 @@ const GammaPentagonal = () => {
 											placeholder="Example: 12345678"
 										/>
 									</div>
+									<div className="mb-3"></div>
+									<div>
+										<div onClick={cipher} className="btn btn-primary shadow d-block w-100" title="if not written it will be auto generated">
+											Set Permutation{" "}
+										</div>
+									</div>
 									<div className="mb-3">
 										<h6 className="fw-bold mb-0">Option:</h6>
 										<select onChange={addOption} className="form-select" name="option_encrypt">
@@ -171,13 +181,13 @@ const GammaPentagonal = () => {
 									<div className="mb-3"></div>
 									<div className="mb-3"></div>
 									<div>
-										<div onClick={cipher} className="btn btn-primary shadow d-block w-100">
+										<div onClick={copyText} className="btn btn-primary shadow d-block w-100">
 											Copy Text{" "}
 										</div>
 									</div>
 									<div className="mb-3"></div>
 									<div className="mb-3"></div>
-									<div className="mb-3">
+									{/* <div className="mb-3">
 										<div>
 											<div onClick={suggest} className="btn btn-primary shadow d-block w-100">
 												Suggest Permutation
@@ -193,7 +203,7 @@ const GammaPentagonal = () => {
 												readOnly=""
 											/>
 										</div>
-									</div>
+									</div> */}
 								</form>
 							</div>
 						</div>
