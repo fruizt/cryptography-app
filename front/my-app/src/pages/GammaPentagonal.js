@@ -52,8 +52,8 @@ const GammaPentagonal = () => {
 	const cipher = () => {
 		let data = {
 			text: clearText,
-			init: "0,0",
-			permutation: "0-1-2-3-4-5-6-7-8-9", // creo que es mejor que se reciba la permutacion asi 0123456789
+			init: initialPoints,
+			permutation: keyValue, // creo que es mejor que se reciba la permutacion asi 0123456789
 		};
 		console.log(data);
 
@@ -82,13 +82,14 @@ const GammaPentagonal = () => {
 			setmatrixPlot(response.data.matrixPlot);
 			setscatterPlot(response.data.scatterPlot);
 			console.log("response Graph", response.data);
-			console.log("response lineplot", response.data.matrixPlot);
+			// console.log("response lineplot", response.data.matrixPlot);
 		});
 	};
 
 	useEffect(() => {
 		graph();
-	}, []);
+	}, [keyValue]);
+
 
 	return (
 		<div>
@@ -154,7 +155,7 @@ const GammaPentagonal = () => {
 									<div className="mb-3"></div>
 									<div>
 										<div
-											onClick={cipher}
+											onClick={()=>{cipher();graph()}}
 											className="btn btn-primary shadow d-block w-100"
 											title="if not written it will be auto generated"
 										>

@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Plot from "react-plotly.js";
 
 const Plotly2 = (props) => {
 	
 	let dict = props.props
-
+	console.log(">> got called")
 	return (
 		<Plot
 			data={[
