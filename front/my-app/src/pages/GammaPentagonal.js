@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React, { Component } from "react";
 import axios from "axios";
 import Plotly from "../Components/Plotly";
@@ -7,23 +7,21 @@ import Plotly2 from "../Components/Plotly2";
 const testURL = "http://localhost:8000";
 const prod = "https://web-backend-pypy.azurewebsites.net/";
 
-const graphtUrl = testURL + "/modern/gamma_graph";
+const graphtUrl = testURL + "/modern/encrypt/gamma_graph";
 const encryptUrl = testURL + "/modern/encrypt/gamma_pentagonal";
 const decryptUrl = testURL + "/modern/decrypt/gamma_pentagonal";
 const suggestUrl = "https://web-backend-pypy.azurewebsites.net/classic/suggest/substitution";
 
 const GammaPentagonal = () => {
-	const a = [
-		0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25,
-	];
 	const [clearText, setClearText] = useState("");
-	const [valueA, setValueA] = useState("0");
 	const [option, setOption] = useState("E");
 	const [encryptText, setencryptText] = useState("");
-	const [cryptoAnalysisText, setCryptoAnalysisText] = useState("");
 	const [suggestKey, setsuggestKey] = useState("");
-	const [keyValue, setkeyValue] = useState("");
-	const [encryptTextForAnalys, setEncryptTextForAnalys] = useState("");
+	const [keyValue, setkeyValue] = useState("0-1-2-3-4-5-6-7-8-9");
+	const [initialPoints, setinitialPoints] = useState("0,0");
+	const [linePlot, setlinePlot] = useState([]);
+	const [matrixPlot, setmatrixPlot] = useState([]);
+	const [scatterPlot, setscatterPlot] = useState([]);
 
 	const addInput = (val) => {
 		setClearText(val.target.value);
@@ -35,36 +33,9 @@ const GammaPentagonal = () => {
 		console.log(val.target.value);
 	};
 
-	const addValueA = (val) => {
-		setValueA(val.target.value);
-		console.log(val.target.value);
-	};
-
 	const addOption = (val) => {
 		setOption(val.target.value);
 		console.log(val.target.value);
-	};
-
-	const cipher = () => {
-		let data = {
-			text: clearText,
-			init: "0,0",
-            permutation: "0-1-2-3-4-5-6-7-8-9"
-		};
-		console.log(data);
-
-		if (option === "E") {
-			axios.post(encryptUrl, data).then((response) => {
-				console.log(">>response", response);
-				setencryptText(response.data.encryptText);
-				console.log(">> text:",response.data.encryptText.substr(0));
-			});
-		} else {
-			axios.post(decryptUrl, data).then((response) => {
-				setencryptText(response.data.encryptText);
-				console.log(response.data.result);
-			});
-		}
 	};
 
 	const suggest = () => {
@@ -75,8 +46,49 @@ const GammaPentagonal = () => {
 	};
 
 	const copyText = () => {
-		navigator.clipboard.writeText(encryptText)
-	}
+		navigator.clipboard.writeText(encryptText);
+	};
+
+	const cipher = () => {
+		let data = {
+			text: clearText,
+			init: "0,0",
+			permutation: "0-1-2-3-4-5-6-7-8-9", // creo que es mejor que se reciba la permutacion asi 0123456789
+		};
+		console.log(data);
+
+		if (option === "E") {
+			axios.post(encryptUrl, data).then((response) => {
+				console.log(">>response", response);
+				setencryptText(response.data.encryptText);
+				console.log(">> text:", response.data.encryptText.substr(0));
+			});
+		} else {
+			axios.post(decryptUrl, data).then((response) => {
+				setencryptText(response.data.encryptText);
+				console.log(response.data.result);
+			});
+		}
+	};
+
+	const graph = () => {
+		let data = {
+			init: initialPoints,
+			permutation: keyValue,
+			text: "",
+		};
+		axios.post(graphtUrl, data).then((response) => {
+			setlinePlot(response.data.linePlot);
+			setmatrixPlot(response.data.matrixPlot);
+			setscatterPlot(response.data.scatterPlot);
+			console.log("response Graph", response.data);
+			console.log("response lineplot", response.data.matrixPlot);
+		});
+	};
+
+	useEffect(() => {
+		graph();
+	}, []);
 
 	return (
 		<div>
@@ -95,8 +107,8 @@ const GammaPentagonal = () => {
 						<div className="col-md-6 col-xl-0">
 							<div>
 								<form className="p-3 p-xl-4" method="post">
-									<div className="mb-3" style={{borderRadius:"15px"}}>
-										<Plotly />
+									<div className="mb-3" style={{ borderRadius: "15px" }}>
+										<Plotly props={[scatterPlot, linePlot]} />
 									</div>
 								</form>
 							</div>
@@ -105,7 +117,7 @@ const GammaPentagonal = () => {
 							<div>
 								<form className="p-3 p-xl-4" method="post">
 									<div className="mb-3">
-										<Plotly2 />
+										<Plotly2 props={matrixPlot} />
 									</div>
 								</form>
 							</div>
@@ -141,7 +153,11 @@ const GammaPentagonal = () => {
 									</div>
 									<div className="mb-3"></div>
 									<div>
-										<div onClick={cipher} className="btn btn-primary shadow d-block w-100" title="if not written it will be auto generated">
+										<div
+											onClick={cipher}
+											className="btn btn-primary shadow d-block w-100"
+											title="if not written it will be auto generated"
+										>
 											Set Permutation{" "}
 										</div>
 									</div>
