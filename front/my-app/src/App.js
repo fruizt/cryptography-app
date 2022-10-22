@@ -9,6 +9,9 @@ import { NavLink } from "react-router-dom";
 import Affine from "./pages/Affine";
 import Vigenere from "./pages/Vigenere";
 import GammaPentagonal from "./pages/GammaPentagonal";
+import AES from "./pages/AES";
+import TDES from "./pages/TDES";
+import SDES from "./pages/SDES";
 
 function App() {
   return (
@@ -26,7 +29,12 @@ function App() {
                             <div className="dropdown-menu dropdown-menu-dark"><NavLink className="dropdown-item" to="/shift">Shift</NavLink><NavLink className="dropdown-item" to="/substitution">Substitution</NavLink><NavLink className="dropdown-item" to="/affine">Affine</NavLink><NavLink className="dropdown-item" to="/vigenere">Vigenere</NavLink><NavLink className="dropdown-item" to="/hill">Hill</NavLink><NavLink className="dropdown-item" to="/permutation">Permutation</NavLink></div>
                         </div>
                     </li>
-                    <li className="nav-item"></li>
+                    <li className="nav-item"><NavLink className="nav-link" to="/gamma">GammaPentagonal</NavLink></li>
+                    <li className="nav-item">
+                        <div className="nav-item dropdown nav-link active"><NavLink className="dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" to="/">Block Methods&nbsp;</NavLink>
+                            <div className="dropdown-menu dropdown-menu-dark"><NavLink className="dropdown-item" to="/sdes">S-DES</NavLink><NavLink className="dropdown-item" to="/tdes">T-DES</NavLink><NavLink className="dropdown-item" to="/aes">AES</NavLink></div>
+                        </div>
+                    </li>
                     <li className="nav-item"></li>
                     <li className="nav-item"><a className="nav-link" href="shift.html">Github</a></li>
                 </ul>
@@ -43,6 +51,9 @@ function App() {
           <Route path="/substitution" element={<Substitution />} />
           <Route path="/permutation" element={<Permutation />} />
           <Route path="/gamma" element={<GammaPentagonal />} />
+          <Route path="/aes" element={<AES />} />
+          <Route path="/tdes" element={<TDES />} />
+          <Route path="/sdes" element={<SDES />} />
       </Routes>
       <footer className="bg-dark">
         <div className="container py-4 py-lg-5">

@@ -54,5 +54,21 @@ class GammaPentagonalRequest(BaseModel):
     permutation: str
     text: str
     init: str
-    
 
+class AESImageRequest(BaseModel):
+    file:  bytes = File(...)
+
+class AESRequest(BaseModel):
+    key: str
+    encrypt: str
+    mode: str
+class AESDecryptRequest(BaseModel):
+    key: str
+    encrypt: str
+    mode: str
+    iv: str
+class SDESRequest(BaseModel):
+    key: str
+    encrypt: str
+    permutation: str
+    
