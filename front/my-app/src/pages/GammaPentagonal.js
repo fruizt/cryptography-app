@@ -4,13 +4,13 @@ import axios from "axios";
 import Plotly from "../Components/Plotly";
 import Plotly2 from "../Components/Plotly2";
 
-const testURL = "http://localhost:8000";
-const prod = "https://web-backend-pypy.azurewebsites.net/";
+const testURL = "http://localhost:80";
+const prod = "https://secondback.azurewebsites.net/";
 
-const graphtUrl = testURL + "/modern/encrypt/gamma_graph";
-const encryptUrl = testURL + "/modern/encrypt/gamma_pentagonal";
-const decryptUrl = testURL + "/modern/decrypt/gamma_pentagonal";
-const suggestUrl = "https://web-backend-pypy.azurewebsites.net/classic/suggest/substitution";
+const graphtUrl = prod + "/modern/encrypt/gamma_graph";
+const encryptUrl = prod + "/modern/encrypt/gamma_pentagonal";
+const decryptUrl = prod + "/modern/decrypt/gamma_pentagonal";
+const suggestUrl = prod + "/modern/encrypt/gamma_suggest"
 
 const GammaPentagonal = () => {
 	const [clearText, setClearText] = useState("");
@@ -33,6 +33,11 @@ const GammaPentagonal = () => {
 		console.log(val.target.value);
 	};
 
+	const addInitialValues = (val) => {
+		setinitialPoints(val.target.value);
+		console.log(val.target.value);
+	};
+
 	const addOption = (val) => {
 		setOption(val.target.value);
 		console.log(val.target.value);
@@ -40,14 +45,21 @@ const GammaPentagonal = () => {
 
 	const suggest = () => {
 		axios.post(suggestUrl).then((response) => {
-			setsuggestKey(response.data.result);
-			console.log(response.data.result);
+			setkeyValue(response.data.suggest);
+			console.log(response.data);
 		});
 	};
 
-	const copyText = () => {
-		navigator.clipboard.writeText(encryptText);
-	};
+	const clear = () =>{
+		setClearText("")
+		setencryptText("")
+	}
+
+	const copyText =val=>{
+        console.log(encryptText)
+        
+        setClearText(encryptText)
+    }
 
 	const cipher = () => {
 		let data = {
@@ -88,8 +100,7 @@ const GammaPentagonal = () => {
 
 	useEffect(() => {
 		graph();
-	}, [keyValue]);
-
+	},[]);
 
 	return (
 		<div>
@@ -124,11 +135,37 @@ const GammaPentagonal = () => {
 							</div>
 						</div>
 					</div>
-					{/* asdasd */}
 					<div className="row d-flex justify-content-center">
 						<div className="col-md-6 col-xl-4">
 							<div>
 								<form className="p-3 p-xl-4" method="post">
+									<div className="mb-3">
+										<h6 className="fw-bold mb-0">Permutation:</h6>
+										<input
+											onChange={addKey}
+											className="form-control"
+											type="text"
+											id="name-1"
+											name="Key_encrypt"
+											placeholder="Example: 12345678"
+											value={keyValue}
+										/>
+									</div>
+									<div>
+										<div
+											onClick={() => {
+												// cipher();
+												graph();
+											}}
+											className="btn btn-primary shadow d-block w-100"
+											title="if not written it will be auto generated"
+										>
+											Set Permutation{" "}
+										</div>
+									</div>
+
+									<div className="mb-3"></div>
+
 									<div className="mb-3">
 										<h6 className="fw-bold mb-0">Text:</h6>
 										<textarea
@@ -139,29 +176,12 @@ const GammaPentagonal = () => {
 											rows="6"
 											placeholder="Message"
 											style={{ height: "200px" }}
+											value={clearText}
 										></textarea>
 									</div>
-									<div className="mb-3">
-										<h6 className="fw-bold mb-0">Permutation:</h6>
-										<input
-											onChange={addKey}
-											className="form-control"
-											type="text"
-											id="name-1"
-											name="Key_encrypt"
-											placeholder="Example: 12345678"
-										/>
-									</div>
+
 									<div className="mb-3"></div>
-									<div>
-										<div
-											onClick={()=>{cipher();graph()}}
-											className="btn btn-primary shadow d-block w-100"
-											title="if not written it will be auto generated"
-										>
-											Set Permutation{" "}
-										</div>
-									</div>
+
 									<div className="mb-3">
 										<h6 className="fw-bold mb-0">Option:</h6>
 										<select onChange={addOption} className="form-select" name="option_encrypt">
@@ -183,6 +203,32 @@ const GammaPentagonal = () => {
 						<div className="col-md-6 col-xl-4">
 							<div>
 								<form className="p-3 p-xl-4" method="post">
+								<div className="mb-3">
+										<h6 className="fw-bold mb-0">Initial Points:</h6>
+										<input
+											onChange={addInitialValues}
+											className="form-control"
+											type="text"
+											id="name-1"
+											name="Key_encrypt"
+											placeholder="Example: 0,0"
+											value={initialPoints}
+										/>
+									</div>
+									<div>
+										<div
+											onClick={() => {
+												// cipher();
+												graph();
+											}}
+											className="btn btn-primary shadow d-block w-100"
+											title="if not written it will be auto generated"
+										>
+											Set Initial Points{" "}
+										</div>
+									</div>
+
+									<div className="mb-3"></div>
 									<div className="mb-3">
 										<h6 className="fw-bold mb-0">Text result:</h6>
 										<textarea
@@ -204,23 +250,19 @@ const GammaPentagonal = () => {
 									</div>
 									<div className="mb-3"></div>
 									<div className="mb-3"></div>
-									{/* <div className="mb-3">
-										<div>
+									<div className="mb-1"></div>
+									<div>
+										<div onClick={clear} className="btn btn-primary shadow d-block w-100">
+											Clear{" "}
+										</div>
+									</div>
+									<div className="mb-3">
+										<div style={{marginTop:"20px"}}>
 											<div onClick={suggest} className="btn btn-primary shadow d-block w-100">
 												Suggest Permutation
 											</div>
 										</div>
-										<div>
-											<input
-												value={suggestKey}
-												className="form-control"
-												type="text"
-												id="name-3"
-												name="Key_encrypt"
-												readOnly=""
-											/>
-										</div>
-									</div> */}
+									</div>
 								</form>
 							</div>
 						</div>

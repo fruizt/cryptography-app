@@ -14,6 +14,10 @@ router = APIRouter(
 
 ##Gamma Pentagonal
 #define flag deafult permutation
+@router.post("/encrypt/gamma_suggest")
+async def ceasar_cypher():
+    return {"suggest":suggest_gamma(),}
+
 @router.post("/encrypt/gamma_graph")
 async def ceasar_cypher(data : GammaPentagonalRequest):
     permutation=list(map(int,data.permutation.split("-")))

@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import axios from 'axios';
 
+const testURL = "http://localhost:8000";
+const prod = "https://secondback.azurewebsites.net/";
 
-const encryptImageURL="http://localhost:8000/modern/aes/encryptImages"
-const decryptImageURL="http://localhost:8000/modern/aes/decryptImages"
+const encryptImageURL= prod + "/modern/aes/encryptImages"
+const decryptImageURL= prod + "/modern/aes/decryptImages"
 
-const suggestKeyURL="http://localhost:8000/modern/generateKeyBits"
-const encryptTextURL="http://localhost:8000/modern/aes/encrypt"
-const decryptTextURL="http://localhost:8000/modern/aes/decrypt"
+const suggestKeyURL= prod +"/modern/generateKeyBits"
+const encryptTextURL= prod + "/modern/aes/encrypt"
+const decryptTextURL= prod + "/modern/aes/decrypt"
 
-const showImageURL="http://localhost:8000/modern/showImageAES"
+const showImageURL= prod +"/modern/showImageAES"
 
 function DataURIToBlob(dataURI) {
     const splitDataURI = dataURI.split(',')

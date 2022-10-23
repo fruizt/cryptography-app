@@ -187,6 +187,14 @@ class GammaPentagonal():
         decrypt=[chr(num+97) for num in text ]
         # print("decrypt:",decrypt)
         return "".join(decrypt)
+    
+    #SUGGEST PERMUTATION
+def suggest_gamma():
+    nums = list(range(0,10))
+    nums=np.random.permutation(nums)
+    nums = "-".join([str(i) for i in nums])
+    print(nums)
+    return nums
             
 
 """ 
