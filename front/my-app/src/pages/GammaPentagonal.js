@@ -5,7 +5,7 @@ import Plotly from "../Components/Plotly";
 import Plotly2 from "../Components/Plotly2";
 
 const testURL = "http://localhost:80";
-const prod = "https://secondback.azurewebsites.net/";
+const prod = "https://quickstart-image-b6b23rgmpa-uc.a.run.app/";
 
 const graphtUrl = prod + "/modern/encrypt/gamma_graph";
 const encryptUrl = prod + "/modern/encrypt/gamma_pentagonal";
@@ -251,11 +251,6 @@ const GammaPentagonal = () => {
 									<div className="mb-3"></div>
 									<div className="mb-3"></div>
 									<div className="mb-1"></div>
-									<div>
-										<div onClick={clear} className="btn btn-primary shadow d-block w-100">
-											Clear{" "}
-										</div>
-									</div>
 									<div className="mb-3">
 										<div style={{marginTop:"20px"}}>
 											<div onClick={suggest} className="btn btn-primary shadow d-block w-100">
@@ -263,6 +258,12 @@ const GammaPentagonal = () => {
 											</div>
 										</div>
 									</div>
+									<div  style={{marginTop:"20px"}}>
+										<div onClick={clear} className="btn btn-primary shadow d-block w-100">
+											Clear{" "}
+										</div>
+									</div>
+									
 								</form>
 							</div>
 						</div>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 
 const testURL = "http://localhost:8000";
-const prod = "https://secondback.azurewebsites.net/";
+const prod = "https://quickstart-image-b6b23rgmpa-uc.a.run.app/";
 
 const suggestKeyURL = prod + "/modern/sdes/suggestKey";
 const encryptTextURL = prod + "/modern/sdes/encrypt";
