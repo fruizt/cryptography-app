@@ -215,7 +215,7 @@ const TDES = () => {
 								<form className="p-3 p-xl-4">
 									<div className="mb-3">
 										<h6 className="fw-bold mb-0">Image:</h6>
-										<img style={{ maxWidth: "300px", maxHeight: "300px" }} src={imagevalue}></img>
+										<img style={{ maxWidth: "380px", maxHeight: "380px" }} src={imagevalue}></img>
 									</div>
 
 									<div>
@@ -301,7 +301,7 @@ const TDES = () => {
 									<div className="mb-3">
 										<h6 className="fw-bold mb-0">Image result:</h6>
 										<img
-											style={{ maxWidth: "300px", maxHeight: "300px" }}
+											style={{ maxWidth: "380px", maxHeight: "380px" }}
 											src={imageDecryptvalue}
 											id="imageDecrypt"
 										></img>

@@ -255,7 +255,7 @@ const AES = () => {
                     <div>
                         <form className="p-3 p-xl-4" >
                             <div className="mb-3">
-                                <h6 className="fw-bold mb-0">Image:</h6><img style={{maxWidth:"300px",maxHeight:"300px"}} src={imagevalue}></img>
+                                <h6 className="fw-bold mb-0">Image:</h6><img style={{maxWidth:"380px",maxHeight:"380px"}} src={imagevalue}></img>
                             </div>
                             
 
@@ -296,7 +296,7 @@ const AES = () => {
                         
                         <form className="p-3 p-xl-4" >
                             <div className="mb-3">
-                            <h6 className="fw-bold mb-0">Image result:</h6><img style={{maxWidth:"300px",maxHeight:"300px"}} src={imageDecryptvalue} id="imageDecrypt"></img>
+                            <h6 className="fw-bold mb-0">Image result:</h6><img style={{maxWidth:"380px",maxHeight:"380px"}} src={imageDecryptvalue} id="imageDecrypt"></img>
                             </div>
                             
                             <div className="mb-3">
