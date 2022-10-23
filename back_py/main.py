@@ -13,6 +13,7 @@ origins = [
     "https://localhost.tiangolo.com",
     "http://localhost",
     "http://localhost:3000",
+    "https://cryptography.vercel.app"
 ]
 
 app.add_middleware(

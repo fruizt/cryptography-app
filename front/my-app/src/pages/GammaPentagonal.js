@@ -5,7 +5,7 @@ import Plotly from "../Components/Plotly";
 import Plotly2 from "../Components/Plotly2";
 
 const testURL = "http://localhost:80";
-const prod = "https://quickstart-image-b6b23rgmpa-uc.a.run.app/";
+const prod = "https://quickstart-image-b6b23rgmpa-uc.a.run.app";
 
 const graphtUrl = prod + "/modern/encrypt/gamma_graph";
 const encryptUrl = prod + "/modern/encrypt/gamma_pentagonal";
