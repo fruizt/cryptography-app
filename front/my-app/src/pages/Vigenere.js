@@ -2,13 +2,13 @@ import { useState } from "react";
 import React, { Component } from "react";
 import axios from "axios";
 
-const testURL = 'http://localhost:8000'
-const prod = 'https://web-backend-pypy.azurewebsites.net'
+const testURL = "http://localhost:8000";
+const prod = "https://quickstart-image-b6b23rgmpa-uc.a.run.app/";
 
-const encryptUrl = prod+"/classic/encrypt/vigenere";
-const decryptUrl = prod+"/classic/decrypt/vigenere";
-const analysisUrl = prod+"/classic/analyse/vigenere";
-const advancedUrl = prod+"/classic/analyse/vigenereAdvanced";
+const encryptUrl = prod + "/classic/encrypt/vigenere";
+const decryptUrl = prod + "/classic/decrypt/vigenere";
+const analysisUrl = prod + "/classic/analyse/vigenere";
+const advancedUrl = prod + "/classic/analyse/vigenereAdvanced";
 
 const Vigenere = () => {
 	const a = [
@@ -50,7 +50,7 @@ const Vigenere = () => {
 	const cipher = () => {
 		let data = {
 			text: clearText,
-			key: (valueA),
+			key: valueA,
 		};
 		console.log(data);
 
@@ -71,10 +71,10 @@ const Vigenere = () => {
 	const analyse = () => {
 		let data = {
 			text: cryptoAnalysisText,
-			key:""
+			key: "",
 		};
 		if (option2 === "B") {
-			console.log("opcion B")
+			console.log("opcion B");
 			axios.post(analysisUrl, data).then((response) => {
 				console.log(">>response", response);
 				// for (let x = 0; x < response.data.text.length; x++) console.log(response.data.text[x]);
@@ -91,8 +91,6 @@ const Vigenere = () => {
 				// console.log(response.data.text);
 			});
 		}
-
-		
 	};
 
 	return (

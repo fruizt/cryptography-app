@@ -2,13 +2,12 @@ import { useState } from "react";
 import React, { Component } from "react";
 import axios from "axios";
 
+const testURL = "http://localhost:8000";
+const prod = "https://quickstart-image-b6b23rgmpa-uc.a.run.app/";
 
-const testURL = 'http://localhost:8000'
-const prod = 'https://web-backend-pypy.azurewebsites.net/'
-
-const encryptUrl = prod+"/classic/encrypt/ceasar";
-const decryptUrl = prod+"/classic/decrypt/ceasar";
-const analysisUrl = prod+"/classic/analyse/ceasar";
+const encryptUrl = prod + "/classic/encrypt/ceasar";
+const decryptUrl = prod + "/classic/decrypt/ceasar";
+const analysisUrl = prod + "/classic/analyse/ceasar";
 
 const Shift = () => {
 	const a = [
@@ -65,7 +64,7 @@ const Shift = () => {
 	const analyse = () => {
 		let data = {
 			text: cryptoAnalysisText,
-			key:0
+			key: 0,
 		};
 
 		axios.post(analysisUrl, data).then((response) => {

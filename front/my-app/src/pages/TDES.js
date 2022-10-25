@@ -367,7 +367,6 @@ const TDES = () => {
 													16
 												</option>
 												<option value="16">24</option>
-												<option value="24">32</option>
 											</select>
 										</div>
 										<div
