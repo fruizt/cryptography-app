@@ -71,4 +71,17 @@ class SDESRequest(BaseModel):
     key: str
     encrypt: str
     permutation: str
-    
+
+class ElGamalEncryptModel(BaseModel):
+    text: str
+    p: int 
+    generator: int 
+    beta: int
+    k: int
+class ElGamalDecryptModel(BaseModel):
+    text: str
+    p: int 
+    x: int 
+class ElGamalv2EncryptModel(BaseModel):
+    text: str
+

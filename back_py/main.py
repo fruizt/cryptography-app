@@ -1,12 +1,13 @@
 from fastapi import FastAPI
 import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import classic,modern
+from app.routers import classic,modern,public
 from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 app.include_router(classic.router)
 app.include_router(modern.router)
+app.include_router(public.router)
 
 origins = [
     "http://localhost.tiangolo.com",
