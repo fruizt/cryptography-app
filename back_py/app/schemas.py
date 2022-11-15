@@ -1,6 +1,6 @@
 from cgitb import text
 from pydantic import BaseModel, Field
-from fastapi import File
+from fastapi import File,UploadFile
 class Item(BaseModel):
     text: str
     # key: int | str | None = None 
@@ -84,4 +84,6 @@ class ElGamalDecryptModel(BaseModel):
     x: int 
 class ElGamalv2EncryptModel(BaseModel):
     text: str
+class SignDSSModel(BaseModel):
+    file: UploadFile
 
