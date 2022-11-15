@@ -1,6 +1,8 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { InformationModal } from "../modals/information";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 const testURL = "http://localhost:8000";
 const prod = "https://quickstart-image-b6b23rgmpa-uc.a.run.app/";
@@ -9,19 +11,30 @@ const suggestKeyURL = prod + "/modern/sdes/suggestKey";
 const encryptTextURL = prod + "/modern/sdes/encrypt";
 const decryptTextURL = prod + "/modern/sdes/decrypt";
 
+const style = {
+	position: "absolute",
+	top: "50%",
+	left: "50%",
+	transform: "translate(-50%, -50%)",
+	width: 400,
+	bgcolor: "background.blue",
+	border: "2px #000",
+	borderRadius: 10,
+	boxShadow: 24,
+	p: 4,
+};
+
 const RSA = () => {
-	/* Text-------------*/
 	const [clearTextText, setClearTextText] = useState("");
 	const [keyValueText, setkeyValueText] = useState("");
-
 	const [optionText, setOptionText] = useState("E");
 	const [encryptTextText, setencryptTextText] = useState("");
-
 	const [permutation, setPermutation] = useState("12345678");
+	const [open, setOpen] = React.useState(false);
 
-	const [openModal, setOpenModal] = useState(false);
+	const handleOpen = () => setOpen(true);
+	const handleClose = () => setOpen(false);
 
-    console.log(">> modal:",openModal)
 	const addPermutationText = (val) => {
 		setPermutation(val.target.value);
 	};
@@ -38,19 +51,6 @@ const RSA = () => {
 	const addKeyText = (val) => {
 		setkeyValueText(val.target.value);
 		console.log(val.target.value);
-	};
-
-	const suggestKeyText = () => {
-		console.log(">>>");
-		axios.post(suggestKeyURL).then((response) => {
-			setkeyValueText(response.data.key);
-			setPermutation(response.data.permutation);
-			console.log(response.data);
-		});
-	};
-
-	const chargeModal = () => {
-		setOpenModal(true);
 	};
 
 	const addOptionText = (val) => {
@@ -79,9 +79,68 @@ const RSA = () => {
 
 	return (
 		<>
-			{openModal && (
-				<InformationModal onDismiss={() => setOpenModal(false)} information={{ publickey: "omg" }} />
-			)}
+			<Modal
+				open={open}
+				onClose={handleClose}
+				aria-labelledby="modal-modal-title"
+				aria-describedby="modal-modal-description"
+			>
+				<Box sx={style}>
+					<Typography id="modal-modal-title" variant="h6" component="h2">
+						Informacion confidencial
+					</Typography>
+					<Typography id="modal-modal-description" sx={{ mt: 2 }}>
+						Informacion confidencial sobre la llave privada
+						<ul>
+							<li>
+								Private key:{" "}
+								<input
+									type="text"
+									id="uname"
+									name="name"
+									value="MIIBOgIBAAJBAKj34GkxFhD90vcNLYLInFEX6Ppy1tPf9Cnzj4p4WGeKLs1Pt8Qu
+											KUpRKfFLfRYC9AIKjbJTWit+CqvjWYzvQwECAwEAAQJAIJLixBy2qpFoS4DSmoEm
+											o3qGy0t6z09AIJtH+5OeRV1be+N4cDYJKffGzDa88vQENZiRm0GRq6a+HPGQMd2k
+											TQIhAKMSvzIBnni7ot/OSie2TmJLY4SwTQAevXysE2RbFDYdAiEBCUEaRQnMnbp7
+											9mxDXDf6AU0cN/RPBjb9qSHDcWZHGzUCIG2Es59z8ugGrDY+pxLQnwfotadxd+Uy
+											v/Ow5T0q5gIJAiEAyS4RaI9YG8EWx/2w0T67ZUVAw8eOMB6BIUg0Xcu+3okCIBOs
+											/5OiPgoTdSy7bcF9IGpSE8ZgGKzgYQVZeN97YE00"
+									readonly
+									style={{ border: "none", background: "transparent", color: "white" }}
+								/>
+							</li>
+							<li>
+								P:{" "}
+								<input
+									type="text"
+									id="uname"
+									name="name"
+									value="123123123123"
+									readonly
+									style={{ border: "none", background: "transparent", color: "white" }}
+								/>
+							</li>
+							<li>
+								Q:{" "}
+								<input
+									type="text"
+									id="uname"
+									name="name"
+									value="123123123123"
+									readonly
+									style={{ border: "none", background: "transparent", color: "white" }}
+								/>
+							</li>
+						</ul>
+					</Typography>
+					<p> </p>
+					<div>
+						<div onClick={cipherText} className="btn btn-primary shadow d-block w-50">
+							Descargar{" "}
+						</div>
+					</div>
+				</Box>
+			</Modal>
 			<div>
 				<section className="py-5">
 					<div className="container py-5">
@@ -111,7 +170,7 @@ const RSA = () => {
 										<div className="mb-3">
 											<div className="mb-3">
 												<div className="mb-3">
-													<h6 className="fw-bold mb-0">Permutation:</h6>
+													<h6 className="fw-bold mb-0">Pulbic key:</h6>
 													<input
 														onChange={addPermutationText}
 														className="form-control"
@@ -135,7 +194,7 @@ const RSA = () => {
 											</div>
 
 											<div
-												onClick={() => chargeModal()}
+												onClick={() => handleOpen()}
 												className="btn btn-primary shadow d-block w-100"
 												style={{ marginBottom: "20px" }}
 											>

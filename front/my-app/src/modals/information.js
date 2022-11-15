@@ -1,46 +1,51 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
+const style = {
+	position: "absolute",
+	top: "50%",
+	left: "50%",
+	transform: "translate(-50%, -50%)",
+	width: 400,
+	bgcolor: "blue",
+	border: "2px solid #000",
+	boxShadow: 24,
+	p: 4,
+};
 
-export const InformationModal = ({ onDismiss, information }) => {
+export const InformationModal = ({ onDismiss, information, state }) => {
+	const [open, setOpen] = React.useState(state);
+	const handleOpen = () => setOpen(true);
+	const handleClose = () => setOpen(false);
+	console.log(">> open:", open);
 
-  console.log(information)
-  return (
-    <>
-        {/* <div className='modal text-center text-white'>
-            <p> uwu</p>
-            {/* <div onClick={onDismiss} className="absolute h-full w-full bg-black bg-opacity-40 backdrop-filter backdrop-blur" />
-            <div className="z-10 w-96 transform scale-85 sm:scale-100 flex flex-col items-stretch shadow-dark p-5 space-y-7 rounded-xl border border-white border-opacity-20 bg-grey-darkest bg-opacity-20 backdrop-filter backdrop-blur-xl">
-            <h2 className='max-h-[3.3rem] mt-11'>User stats</h2>
-                {information && <p className='gradientText truncate'> {information["?column?"]}</p>}
-                <div className='stats'>
-                    <div className='stats__text'>
-                    Level
-                    </div>
-                    <div className='stats__data'>
-                    08
-                    </div>
-                </div>
-                <div className='stats'>
-                    <div className='stats__text'>
-                    Badges
-                    </div>
-                    <div className='stats__data'>
-                    15
-                    </div>
-                </div>
-                <div className='stats'>
-                    <div className='stats__text'>
-                    Activity
-                    </div>
-                    <div className='stats__data'>
-                    High
-                    </div>
-                </div>
-                <div className='regularButton'>
-                    <button className='my-10' onClick={onDismiss} >Close</button>
-                </div>
-            </div> 
-        </div> */}
-    </>
-  )
-}
+	useEffect(() => {
+		setOpen(state)
+	}, []);
+	console.log(information);
+	return (
+		<>
+			<div>
+				{/* <Button onClick={handleOpen}>Open modal</Button> */}
+				<Modal
+					open={open}
+					onClose={handleClose}
+					aria-labelledby="modal-modal-title"
+					aria-describedby="modal-modal-description"
+				>
+					<Box sx={style}>
+						<Typography id="modal-modal-title" variant="h6" component="h2">
+							Text in a modal
+						</Typography>
+						<Typography id="modal-modal-description" sx={{ mt: 2 }}>
+							Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+						</Typography>
+					</Box>
+				</Modal>
+			</div>
+		</>
+	);
+};
