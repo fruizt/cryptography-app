@@ -12,6 +12,9 @@ import GammaPentagonal from "./pages/GammaPentagonal";
 import AES from "./pages/AES";
 import TDES from "./pages/TDES";
 import SDES from "./pages/SDES";
+import RSA from "./pages/RSA";
+import ElGamal from "./pages/ElGammal";
+
 
 function App() {
   return (
@@ -35,6 +38,11 @@ function App() {
                             <div className="dropdown-menu dropdown-menu-dark"><NavLink className="dropdown-item" to="/sdes">S-DES</NavLink><NavLink className="dropdown-item" to="/tdes">T-DES</NavLink><NavLink className="dropdown-item" to="/aes">AES</NavLink></div>
                         </div>
                     </li>
+                    <li className="nav-item">
+                        <div className="nav-item dropdown nav-link active"><NavLink className="dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" to="/">Public key Methods&nbsp;</NavLink>
+                            <div className="dropdown-menu dropdown-menu-dark"><NavLink className="dropdown-item" to="/rsa">RSA</NavLink><NavLink className="dropdown-item" to="/gammal">ElGamal</NavLink><NavLink className="dropdown-item" to="/aes">Rabin</NavLink></div>
+                        </div>
+                    </li>
                     <li className="nav-item"></li>
                     <li className="nav-item"><a className="nav-link" href="shift.html">Github</a></li>
                 </ul>
@@ -54,6 +62,8 @@ function App() {
           <Route path="/aes" element={<AES />} />
           <Route path="/tdes" element={<TDES />} />
           <Route path="/sdes" element={<SDES />} />
+          <Route path="/rsa" element={<RSA />} />
+          <Route path="/gammal" element={<ElGamal />} />
       </Routes>
       <footer className="bg-dark">
         <div className="container py-4 py-lg-5">
