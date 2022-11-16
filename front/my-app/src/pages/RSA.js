@@ -17,7 +17,7 @@ const style = {
 	left: "50%",
 	transform: "translate(-50%, -50%)",
 	width: 400,
-	bgcolor: "background.blue",
+	bgcolor: "#282c34",
 	border: "2px #000",
 	borderRadius: 10,
 	boxShadow: 24,
@@ -87,10 +87,10 @@ const RSA = () => {
 			>
 				<Box sx={style}>
 					<Typography id="modal-modal-title" variant="h6" component="h2">
-						Informacion confidencial
+						Confidencial information
 					</Typography>
 					<Typography id="modal-modal-description" sx={{ mt: 2 }}>
-						Informacion confidencial sobre la llave privada
+						Save your credentials for decrypt your information level.
 						<ul>
 							<li>
 								Private key:{" "}
@@ -133,11 +133,16 @@ const RSA = () => {
 							</li>
 						</ul>
 					</Typography>
-					<p> </p>
+					
 					<div>
-						<div onClick={cipherText} className="btn btn-primary shadow d-block w-50">
-							Descargar{" "}
+						<div onClick={cipherText} className="btn btn-primary shadow d-block w-100">
+							Copy{" "}
 						</div>
+						<p> </p>
+						<div onClick={cipherText} className="btn btn-primary shadow d-block w-100">
+							Download{" "}
+						</div>
+						
 					</div>
 				</Box>
 			</Modal>
