@@ -1,7 +1,7 @@
 import rsa
 from base64 import b64encode
 from base64 import b64decode
-from rsa import key, common
+from rsa import key, common,PublicKey,PrivateKey
 
 def int_to_bytes(x: int) -> bytes:
     return x.to_bytes((x.bit_length() + 7) // 8, 'big')
@@ -11,10 +11,21 @@ def int_from_bytes(xbytes: bytes) -> int:
 
 #generate random key, two classes one is public and the other private, the attributes are the prime numbers.
 def random_keygen_rsa(size):
-  return key.newkeys(size)
+  (pub_key, priv_key) = key.newkeys(size)
+  return {"public":{
+                "n":pub_key.n,
+                "e": pub_key.e
+            },
+            "private":{
+                "d":priv_key.d,
+                "p":priv_key.p,
+                "q":priv_key.q
+            }
+            }
 
 #encrypt with rsa using the class public key from rsa
-def encrypt_rsa(pub_key,string):
+def encrypt_rsa(n,e,string):
+  pub_key=PublicKey(n,e)
   flag = True
   while flag == True:
     if(len(string) % 3 != 0):
@@ -41,7 +52,8 @@ def encrypt_rsa(pub_key,string):
 
 
 #decrypt with rsa using the class private key from rsa
-def decrypt_rsa(priv_key, enc_str):
+def decrypt_rsa(d,p,q,e, enc_str):
+  priv_key=PrivateKey(p*q,e,d,p,q)
   decript_list = enc_str.split(',')
 
   dec_str = ''

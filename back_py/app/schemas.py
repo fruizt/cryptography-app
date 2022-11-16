@@ -71,7 +71,8 @@ class SDESRequest(BaseModel):
     key: str
     encrypt: str
     permutation: str
-
+    
+#ELgamal --------------
 class ElGamalEncryptModel(BaseModel):
     text: str
     p: int 
@@ -84,6 +85,29 @@ class ElGamalDecryptModel(BaseModel):
     x: int 
 class ElGamalv2EncryptModel(BaseModel):
     text: str
-class SignDSSModel(BaseModel):
-    file: UploadFile
+
+
+
+#Rabin --------------
+class RabinEncryptModel(BaseModel):
+    text: str
+    n: int 
+    B: int 
+class RabinDecryptModel(BaseModel):
+    text: str
+    p: int 
+    q: int
+    B: int 
+
+#RSA --------------
+class RSAEncryptModel(BaseModel):
+    text: str
+    n: int 
+    e: int 
+class RSADecryptModel(BaseModel):
+    text: str
+    p: int 
+    q: int
+    e: int
+    d: int 
 

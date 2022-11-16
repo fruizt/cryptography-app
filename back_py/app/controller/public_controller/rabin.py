@@ -1,5 +1,5 @@
 import random
-import math
+
 
 
 primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97,
@@ -78,6 +78,20 @@ def mulmod(a, b, mod):
     # Return result
     return res % mod
 
+def suggestKeyRabin(size):
+    p=generate_a_prime_number(size)
+    q=generate_a_prime_number(size)
+    n=p*q
+    B=random.randint(2**16,n)
+    return {"public":{
+                "n":n,
+                "B": B
+            },
+            "private":{
+                "p":p,
+                "q":q
+            }
+            }
 
 # Additional functions
 def none_in_x_is_n(x, n):
@@ -87,13 +101,13 @@ def none_in_x_is_n(x, n):
     return True
 
 #p y q son la parte secreta
-def rabin_encryption(p, q, clearT):
+def rabin_encryption(n,B, clearT):
     cyphtext = ""
 
     numbl = 5
     # Parte publica de la llave
-    n = p*q
-    B = random.randint(0, n-1)
+    #n = p*q
+    #B = random.randint(0, n-1)
 
     # Bloques de a 3:
     flag = True
