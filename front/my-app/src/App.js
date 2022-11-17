@@ -17,6 +17,7 @@ import ElGamal from "./pages/ElGammal";
 import Rabin from "./pages/Rabin";
 import Menezes from "./pages/Menezes";
 import DSS from "./pages/DSS";
+import SignRSA from "./pages/SignRSA";
 
 
 function App() {
@@ -48,7 +49,7 @@ function App() {
                     </li>
                     <li className="nav-item">
                         <div className="nav-item dropdown nav-link active"><NavLink className="dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" to="/">Signatures&nbsp;</NavLink>
-                            <div className="dropdown-menu dropdown-menu-dark"><NavLink className="dropdown-item" to="/dss">DSS</NavLink></div>
+                            <div className="dropdown-menu dropdown-menu-dark"><NavLink className="dropdown-item" to="/dss">DSS</NavLink><NavLink className="dropdown-item" to="/signrsa">RSA</NavLink></div>
                         </div>
                     </li>
                     <li className="nav-item"></li>
@@ -75,6 +76,8 @@ function App() {
           <Route path="/rabin" element={<Rabin />} />
           <Route path="/menezes" element={<Menezes />} />
           <Route path="/dss" element={<DSS />} />
+          <Route path="/signrsa" element={<SignRSA />} />
+          
 
           
       </Routes>

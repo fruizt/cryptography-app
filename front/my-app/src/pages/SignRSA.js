@@ -7,13 +7,13 @@ import Typography from "@mui/material/Typography";
 const testURL = "http://localhost:8000";
 const prod = "https://quickstart-image-b6b23rgmpa-uc.a.run.app/";
 
-const suggestKeyURL=testURL + "/signatures/suggestKey/dss";
-const suggestPublicKeyURL = testURL + "/signatures/publicKey/dss";
-const suggestPrivateKeyURL = testURL + "/signatures/privateKey/dss";
-const setPublicKeyURL = testURL + "/signatures/setPublicKey/dss";
-const setPrivateKeyURL = testURL + "/signatures/setPrivateKey/dss";
-const signTextURL = testURL + "/signatures/sign/dss";
-const verifyTextURL = testURL + "/signatures/verify/dss";
+const suggestKeyURL=testURL + "/signatures/suggestKey/rsa";
+const suggestPublicKeyURL = testURL + "/signatures/publicKey/rsa";
+const suggestPrivateKeyURL = testURL + "/signatures/privateKey/rsa";
+const setPublicKeyURL = testURL + "/signatures/setPublicKey/rsa";
+const setPrivateKeyURL = testURL + "/signatures/setPrivateKey/rsa";
+const signTextURL = testURL + "/signatures/sign/rsa";
+const verifyTextURL = testURL + "/signatures/verify/rsa";
 
 const style = {
 	position: "absolute",
@@ -28,7 +28,7 @@ const style = {
 	p: 4,
 };
 
-const DSS = () => {
+const SignRSA = () => {
 	
 	const [selectedFile, setState] = useState(null);
 	const [selectedPublic, setStatePublic] = useState(null);
@@ -211,7 +211,7 @@ const DSS = () => {
 						<div className="row mb-5">
 							<div className="col-md-8 col-xl-6 text-center mx-auto">
 								<p className="fw-bold text-success mb-2">Digital Signature</p>
-								<h2 className="fw-bold">DSS Signature </h2>
+								<h2 className="fw-bold">RSA Signature </h2>
 							</div>
 						</div>
 						<div className="row d-flex justify-content-center">
@@ -373,4 +373,4 @@ const DSS = () => {
 	);
 };
 
-export default DSS;
+export default SignRSA;

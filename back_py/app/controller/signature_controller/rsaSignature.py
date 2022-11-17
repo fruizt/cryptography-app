@@ -1,6 +1,6 @@
 from random import randint
 from Crypto.PublicKey import RSA
-from Crypto.Signature import DSS
+from Crypto.Signature import pkcs1_15
 from Crypto.Hash import SHA256
 import base64
 
@@ -21,10 +21,10 @@ class RsaSignature():
         self.p = self.key.p
         self.q = self.key.q
         
-        f = open('myprivatekey.pem','wt')
+        f = open('myprivatekeyRSA.pem','wb')
         f.write(self.key.export_key(format='PEM'))
         f.close()
-        f = open('mypublickey.pem','wt')
+        f = open('mypublickeyRSA.pem','wb')
         f.write(self.key.public_key().export_key(format='PEM'))
         f.close()
     
@@ -32,10 +32,10 @@ class RsaSignature():
     def generateKeyRsa(self):
         self.key=RSA.generate(2048)
         self.public=self.key.public_key()
-        f = open('myprivatekey.pem','wt')
+        f = open('myprivatekeyRSA.pem','wb')
         f.write(self.key.export_key(format='PEM'))
         f.close()
-        f = open('mypublickey.pem','wt')
+        f = open('mypublickeyRSA.pem','wb')
         f.write(self.key.public_key().export_key(format='PEM'))
         f.close()
 
@@ -45,32 +45,33 @@ class RsaSignature():
         self.p = self.key.p
         self.q = self.key.q
 
-        result={"public":{
-                    "n":self.n._value,
-                    "e":self.e._value
-                        },
-                "private":{
-                    "d":self.d._value,
-                    "p":self.p._value,
-                    "q":self.q._value   
-                        }
-                }
-        return result
+        # result={"public":{
+        #             "n":self.n._value,
+        #             "e":self.e._value
+        #                 },
+        #         "private":{
+        #             "d":self.d._value,
+        #             "p":self.p._value,
+        #             "q":self.q._value   
+        #                 }
+        #         }
+        return {}
 
     def setPublicKey(self,keyPublic):
         self.public = RSA.import_key(keyPublic)
-        f = open('mypublickey.pem','wt')
+        f = open('mypublickeyRSA.pem','wb')
         f.write(self.public.export_key(format='PEM'))
         f.close()
         return "succes"
 
     def setPrivateKey(self,keyPrivate):
+        print(keyPrivate)
         self.key = RSA.import_key(keyPrivate)
         
-        f = open('myprivatekey.pem','wt')
+        f = open('myprivatekeyRSA.pem','wb')
         f.write(self.key.export_key(format='PEM'))
         f.close()
-        f = open('mypublickey.pem','wt')
+        f = open('mypublickeyRSA.pem','wb')
         f.write(self.key.public_key().export_key(format='PEM'))
         f.close()
         return "succes"
@@ -89,8 +90,8 @@ class RsaSignature():
         #create key optional_____________
         #key=ECC.construct(curve="NIST P-256",d=self.a,point_x=self.alpha.x,point_y=self.alpha.y)
         
-        signer = DSS.new(self.key, 'fips-186-3')
-        signature = signer.sign(file_hash)
+        signature = pkcs1_15.new(self.key).sign(file_hash)
+        
 
         sign_result=(base64.b64encode(signature)).decode("utf-8")
 
@@ -113,7 +114,7 @@ class RsaSignature():
         #public_key=ECC.construct(curve="NIST P-256",point_x=self.alpha.x,point_y=self.alpha.y)
         
         #create object to verify
-        verifyer=DSS.new(self.public,'fips-186-3')
+        verifyer = pkcs1_15.new(self.public)
 
         try:
             verifyer.verify(file_hash,signature)
