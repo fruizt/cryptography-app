@@ -7,13 +7,13 @@ import Typography from "@mui/material/Typography";
 const testURL = "http://localhost:8000";
 const prod = "https://quickstart-image-b6b23rgmpa-uc.a.run.app/";
 
-const suggestKeyURL=testURL + "/signatures/suggestKey/dss";
-const suggestPublicKeyURL = testURL + "/signatures/publicKey/dss";
-const suggestPrivateKeyURL = testURL + "/signatures/privateKey/dss";
-const setPublicKeyURL = testURL + "/signatures/setPublicKey/dss";
-const setPrivateKeyURL = testURL + "/signatures/setPrivateKey/dss";
-const signTextURL = testURL + "/signatures/sign/dss";
-const verifyTextURL = testURL + "/signatures/verify/dss";
+const suggestKeyURL=prod + "/signatures/suggestKey/dss";
+const suggestPublicKeyURL = prod + "/signatures/publicKey/dss";
+const suggestPrivateKeyURL = prod + "/signatures/privateKey/dss";
+const setPublicKeyURL = prod + "/signatures/setPublicKey/dss";
+const setPrivateKeyURL = prod + "/signatures/setPrivateKey/dss";
+const signTextURL = prod + "/signatures/sign/dss";
+const verifyTextURL = prod + "/signatures/verify/dss";
 
 const style = {
 	position: "absolute",

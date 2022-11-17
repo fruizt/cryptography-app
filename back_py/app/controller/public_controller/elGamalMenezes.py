@@ -18,15 +18,15 @@ class Elliptic():
         self.alpha=self.key.pointQ
         self.a=self.key.d
         self.beta=self.a*self.alpha
-        result={"public":{
-                    "alpha":f"{self.alpha.x},{self.alpha.y}",
-                    "beta":f"{self.beta.x},{self.beta.y}"
-                        },
-                "private":{
-                    "a":str(self.a._value)   
-                        }
-                }
-        return result
+        # result={"public":{
+        #             "alpha":f"{self.alpha.x},{self.alpha.y}",
+        #             "beta":f"{self.beta.x},{self.beta.y}"
+        #                 },
+        #         "private":{
+        #             "a":str(self.a._value)   
+        #                 }
+        #         }
+        return "text"
 
     def setPublicKey(self,alpha,beta):
         x1,y1=alpha.split(",")
