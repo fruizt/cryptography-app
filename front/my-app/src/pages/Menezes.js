@@ -7,9 +7,9 @@ import Typography from "@mui/material/Typography";
 const testURL = "http://localhost:8000";
 const prod = "https://quickstart-image-b6b23rgmpa-uc.a.run.app/";
 
-const suggestKeyURL = testURL + "/public/suggest/keyGamalMenezes";
-const encryptTextURL = testURL + "/public/encrypt/elGamalMenezes";
-const decryptTextURL = testURL + "/public/decrypt/elGamalMenezes";
+const suggestKeyURL = prod + "/public/suggest/keyGamalMenezes";
+const encryptTextURL = prod + "/public/encrypt/elGamalMenezes";
+const decryptTextURL = prod + "/public/decrypt/elGamalMenezes";
 
 const style = {
 	position: "absolute",
@@ -27,69 +27,70 @@ const style = {
 const Menezes = () => {
 	const [clearTextText, setClearTextText] = useState("");
 	const [alphaKey, setAlphaKey] = useState("");
-	
-	
+
 	const [betaKey, setBetaKey] = useState("");
 	const [aKey, setAKey] = useState("");
 	const [optionText, setOptionText] = useState("E");
 	const [encryptTextText, setencryptTextText] = useState("");
 	const [open, setOpen] = React.useState(false);
 
-	
 	const handleClose = () => setOpen(false);
 
-	
 	const addAlphaKey = (val) => {
 		setAlphaKey(val.target.value);
 	};
 	const addAKey = (val) => {
 		setAKey(val.target.value);
 	};
-	
 
 	const addBetaKey = (val) => {
 		setBetaKey(val.target.value);
 	};
-	const getRandomKey=() =>{
-
-		axios.post(suggestKeyURL,{}).then((response) => {
-			
+	const getRandomKey = () => {
+		axios.post(suggestKeyURL, {}).then((response) => {
 			setAlphaKey(response.data.public.alpha);
-			
+
 			setBetaKey(response.data.public.beta);
-			setAKey(response.data.private.a)
-			
+			setAKey(response.data.private.a);
+
 			console.log(response.data);
 			setOpen(true);
 		});
-		
-		
-	}
-
-
+	};
 
 	const copyText = (val) => {
-		
 		setClearTextText(encryptTextText);
 	};
 	const addInputText = (val) => {
 		setClearTextText(val.target.value);
 	};
 
-
 	const addOptionText = (val) => {
 		setOptionText(val.target.value);
 		console.log(val.target.value);
 	};
-	const cipherText = () => {
-		
 
+	const download = (filename) => {
+		const text = { a: aKey, beta: betaKey, alpha: alphaKey };
+		const element = document.createElement("a");	
+		const date = Date.now();
+		element.setAttribute(
+			"href",
+			"data:text/plain;charset=utf-8," + encodeURIComponent(JSON.stringify(text))
+		);
+		element.setAttribute("download", "secret" + date);
+		element.style.display = "none";
+		document.body.appendChild(element);
+		element.click();
+		document.body.removeChild(element);
+	};
+
+	const cipherText = () => {
 		if (optionText === "E") {
 			let data = {
 				text: clearTextText,
-				alpha: alphaKey ,
+				alpha: alphaKey,
 				beta: betaKey,
-				
 			};
 			axios.post(encryptTextURL, data).then((response) => {
 				setencryptTextText(response.data.encrypt);
@@ -98,7 +99,6 @@ const Menezes = () => {
 			let data = {
 				text: clearTextText,
 				a: aKey,
-				
 			};
 			axios.post(decryptTextURL, data).then((response) => {
 				setencryptTextText(response.data.decrypt);
@@ -122,10 +122,7 @@ const Menezes = () => {
 					<Typography id="modal-modal-description" sx={{ mt: 2 }}>
 						Save your credentials for decrypt your information level.
 						<ul>
-							<li>
-								Private key :{ " "}
-								
-							</li>
+							<li>Private key : </li>
 							<li>
 								a:{" "}
 								<input
@@ -137,19 +134,13 @@ const Menezes = () => {
 									style={{ border: "none", background: "transparent", color: "white" }}
 								/>
 							</li>
-							
 						</ul>
 					</Typography>
-					
+
 					<div>
-						<div onClick={cipherText} className="btn btn-primary shadow d-block w-100">
-							Copy{" "}
-						</div>
-						<p> </p>
-						<div onClick={cipherText} className="btn btn-primary shadow d-block w-100">
+						<div onClick={download} className="btn btn-primary shadow d-block w-100">
 							Download{" "}
 						</div>
-						
 					</div>
 				</Box>
 			</Modal>
@@ -180,7 +171,6 @@ const Menezes = () => {
 											></textarea>
 										</div>
 										<div className="mb-3">
-											
 											<h6 className="fw-bold mb-0">Option:</h6>
 											<select
 												onChange={addOptionText}
@@ -222,73 +212,74 @@ const Menezes = () => {
 										<div className="mb-3"></div>
 
 										<div className="mb-3">
-												<div className="mb-3">
-													{optionText=="E" &&
+											<div className="mb-3">
+												{optionText == "E" && (
 													<div>
-													<h6 className="fw-bold mb-0">Public key</h6>
-													<row>
-													<column>
-														<h6 className="fw-bold mb-0">alpha:</h6>
-														<input
-															onChange={addAlphaKey}
-															className="form-control"
-															type="text"
-															id="name-1"
-															name="Key_encrypt"
-															placeholder=""
-															value={alphaKey}
-														/>
-													</column>
-													
-													<column>
-														<h6 className="fw-bold mb-0">Beta:</h6>
-														<input
-															onChange={addBetaKey}
-															className="form-control"
-															type="text"
-															id="name-1"
-															name="Key_encrypt"
-															
-															value={betaKey}
-														/>
-													</column>
-												</row>
-												</div>
-													}
-													{optionText=="D" &&
+														<h6 className="fw-bold mb-0">Public key</h6>
+														<row>
+															<column>
+																<h6 className="fw-bold mb-0">alpha:</h6>
+																<input
+																	onChange={addAlphaKey}
+																	className="form-control"
+																	type="text"
+																	id="name-1"
+																	name="Key_encrypt"
+																	placeholder=""
+																	value={alphaKey}
+																/>
+															</column>
+
+															<column>
+																<h6 className="fw-bold mb-0">Beta:</h6>
+																<input
+																	onChange={addBetaKey}
+																	className="form-control"
+																	type="text"
+																	id="name-1"
+																	name="Key_encrypt"
+																	value={betaKey}
+																/>
+															</column>
+														</row>
+													</div>
+												)}
+												{optionText == "D" && (
 													<div>
-													<h6 className="fw-bold mb-0">Private key</h6>
-													<row>
-													<column>
-														<h6 className="fw-bold mb-0">x:</h6>
-														<input
-															onChange={addAKey}
-															className="form-control"
-															type="password"
-															id="name-1"
-															name="Key_encrypt"
-															placeholder="inverse of e"
-															value={aKey}
-														/>
-													</column>
-													
-													
-												</row>
-												</div>
-													}
-												</div>
-													
+														<h6 className="fw-bold mb-0">Private key</h6>
+														<row>
+															<column>
+																<h6 className="fw-bold mb-0">x:</h6>
+																<input
+																	onChange={addAKey}
+																	className="form-control"
+																	type="password"
+																	id="name-1"
+																	name="Key_encrypt"
+																	placeholder="inverse of e"
+																	value={aKey}
+																/>
+															</column>
+														</row>
+													</div>
+												)}
+											</div>
+
 											<div
 												onClick={getRandomKey}
 												className="btn btn-primary shadow d-block w-100"
 												style={{ marginBottom: "20px" }}
 											>
-												Random key 
-												</div> 
+												Random key
+											</div>
 											<div className="mb-3">
-												<div><div onClick={copyText} className="btn btn-primary shadow d-block w-100" >{"<- Copy"}</div></div>	
+												<div>
+													<div onClick={copyText} className="btn btn-primary shadow d-block w-100">
+														{"<- Copy"}
+													</div>
+												</div>
 											</div>
-											</div>
+										</div>
 									</form>
 								</div>
 							</div>
