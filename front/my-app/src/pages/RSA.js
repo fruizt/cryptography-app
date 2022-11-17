@@ -17,12 +17,13 @@ const style = {
 	left: "50%",
 	transform: "translate(-50%, -50%)",
 	width: 400,
-	bgcolor: "background.blue",
+	bgcolor: "#282c34",
 	border: "2px #000",
 	borderRadius: 10,
 	boxShadow: 24,
 	p: 4,
 };
+
 const RSA = () => {
 	const [clearTextText, setClearTextText] = useState("");
 	const [nKey, setNKey] = useState("");
@@ -77,6 +78,7 @@ const RSA = () => {
 	const addInputText = (val) => {
 		setClearTextText(val.target.value);
 	};
+
 
 
 	const addOptionText = (val) => {

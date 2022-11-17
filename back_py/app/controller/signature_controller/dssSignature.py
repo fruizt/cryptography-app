@@ -8,15 +8,29 @@ class DssSignature():
     def __init__(self):
         #generate initial key
         self.key=ECC.generate(curve='NIST P-256')
+        
         self.alpha=self.key.pointQ
-        self.public=2**255 - 19
+        self.public=self.key.public_key()
         self.a=self.key.d
         self.beta=self.a*self.alpha
-        self.k=randint(2**32,2**252)
+        
+        f = open('myprivatekey.pem','wt')
+        f.write(self.key.export_key(format='PEM'))
+        f.close()
+        f = open('mypublickey.pem','wt')
+        f.write(self.key.public_key().export_key(format='PEM'))
+        f.close()
     
     #method to generate new keys
     def generateKeyElliptic(self):
         self.key=ECC.generate(curve='NIST P-256')
+        self.public=self.key.public_key()
+        f = open('myprivatekey.pem','wt')
+        f.write(self.key.export_key(format='PEM'))
+        f.close()
+        f = open('mypublickey.pem','wt')
+        f.write(self.key.public_key().export_key(format='PEM'))
+        f.close()
         self.alpha=self.key.pointQ
         self.a=self.key.d
         self.beta=self.a*self.alpha
@@ -29,7 +43,24 @@ class DssSignature():
                         }
                 }
         return result
+
+    def setPublicKey(self,keyPublic):
+        self.public = ECC.import_key(keyPublic)
+        f = open('mypublickey.pem','wt')
+        f.write(self.public.export_key(format='PEM'))
+        f.close()
+        return "succes"
+
+    def setPrivateKey(self,keyPrivate):
+        self.key = ECC.import_key(keyPrivate)
         
+        f = open('myprivatekey.pem','wt')
+        f.write(self.key.export_key(format='PEM'))
+        f.close()
+        f = open('mypublickey.pem','wt')
+        f.write(self.key.public_key().export_key(format='PEM'))
+        f.close()
+        return "succes"
     #method to encrypt
     def signFile(self,f):
         
@@ -69,7 +100,7 @@ class DssSignature():
         #public_key=ECC.construct(curve="NIST P-256",point_x=self.alpha.x,point_y=self.alpha.y)
         
         #create object to verify
-        verifyer=DSS.new(self.key,'fips-186-3')
+        verifyer=DSS.new(self.public,'fips-186-3')
 
         try:
             verifyer.verify(file_hash,signature)
