@@ -7,9 +7,9 @@ import Typography from "@mui/material/Typography";
 const testURL = "http://localhost:8000";
 const prod = "https://quickstart-image-b6b23rgmpa-uc.a.run.app/";
 
-const suggestKeyURL = testURL + "/public/suggest/keyGamal";
-const encryptTextURL = testURL + "/public/encrypt/elGamal";
-const decryptTextURL = testURL + "/public/decrypt/elGamal";
+const suggestKeyURL = testURL + "/public/suggest/keyGamalMenezes";
+const encryptTextURL = testURL + "/public/encrypt/elGamalMenezes";
+const decryptTextURL = testURL + "/public/decrypt/elGamalMenezes";
 
 const style = {
 	position: "absolute",
@@ -24,14 +24,13 @@ const style = {
 	p: 4,
 };
 
-const ElGammal = () => {
+const Menezes = () => {
 	const [clearTextText, setClearTextText] = useState("");
-	const [generatorKey, setGeneratorKey] = useState("");
+	const [alphaKey, setAlphaKey] = useState("");
 	
-	const [pKey, setPKey] = useState("");
-	const [kKey, setKKey] = useState("");
+	
 	const [betaKey, setBetaKey] = useState("");
-	const [xKey, setXKey] = useState("");
+	const [aKey, setAKey] = useState("");
 	const [optionText, setOptionText] = useState("E");
 	const [encryptTextText, setencryptTextText] = useState("");
 	const [open, setOpen] = React.useState(false);
@@ -39,18 +38,14 @@ const ElGammal = () => {
 	
 	const handleClose = () => setOpen(false);
 
-	const addKKey = (val) => {
-		setKKey(val.target.value);
+	
+	const addAlphaKey = (val) => {
+		setAlphaKey(val.target.value);
 	};
-	const addGeneratorKey = (val) => {
-		setGeneratorKey(val.target.value);
+	const addAKey = (val) => {
+		setAKey(val.target.value);
 	};
-	const addXKey = (val) => {
-		setXKey(val.target.value);
-	};
-	const addPKey = (val) => {
-		setPKey(val.target.value);
-	};
+	
 
 	const addBetaKey = (val) => {
 		setBetaKey(val.target.value);
@@ -59,11 +54,11 @@ const ElGammal = () => {
 
 		axios.post(suggestKeyURL,{}).then((response) => {
 			
-			setGeneratorKey(response.data.generator);
-			setPKey(response.data.p);
-			setBetaKey(response.data.beta);
-			setXKey(response.data.x)
-			setKKey(response.data.k)
+			setAlphaKey(response.data.public.alpha);
+			
+			setBetaKey(response.data.public.beta);
+			setAKey(response.data.private.a)
+			
 			console.log(response.data);
 			setOpen(true);
 		});
@@ -92,10 +87,9 @@ const ElGammal = () => {
 		if (optionText === "E") {
 			let data = {
 				text: clearTextText,
-				p: pKey ,
-				generator: generatorKey ,
+				alpha: alphaKey ,
 				beta: betaKey,
-				k: kKey
+				
 			};
 			axios.post(encryptTextURL, data).then((response) => {
 				setencryptTextText(response.data.encrypt);
@@ -103,9 +97,8 @@ const ElGammal = () => {
 		} else {
 			let data = {
 				text: clearTextText,
+				a: aKey,
 				
-				p: pKey,
-				x: xKey,
 			};
 			axios.post(decryptTextURL, data).then((response) => {
 				setencryptTextText(response.data.decrypt);
@@ -134,27 +127,17 @@ const ElGammal = () => {
 								
 							</li>
 							<li>
-								x:{" "}
+								a:{" "}
 								<input
 									type="text"
 									id="uname"
 									name="name"
-									value={xKey}
+									value={aKey}
 									readonly
 									style={{ border: "none", background: "transparent", color: "white" }}
 								/>
 							</li>
-							<li>
-								k:{" "}
-								<input
-									type="text"
-									id="uname"
-									name="name"
-									value={kKey}
-									readonly
-									style={{ border: "none", background: "transparent", color: "white" }}
-								/>
-							</li>
+							
 						</ul>
 					</Typography>
 					
@@ -176,7 +159,7 @@ const ElGammal = () => {
 						<div className="row mb-5">
 							<div className="col-md-8 col-xl-6 text-center mx-auto">
 								<p className="fw-bold text-success mb-2">Pulbic key system</p>
-								<h2 className="fw-bold">ElGammal Encryption </h2>
+								<h2 className="fw-bold">Menezes-Vanstone Encryption </h2>
 							</div>
 						</div>
 						<div className="row d-flex justify-content-center">
@@ -245,29 +228,18 @@ const ElGammal = () => {
 													<h6 className="fw-bold mb-0">Public key</h6>
 													<row>
 													<column>
-														<h6 className="fw-bold mb-0">generator:</h6>
+														<h6 className="fw-bold mb-0">alpha:</h6>
 														<input
-															onChange={addGeneratorKey}
+															onChange={addAlphaKey}
 															className="form-control"
 															type="text"
 															id="name-1"
 															name="Key_encrypt"
 															placeholder=""
-															value={generatorKey}
+															value={alphaKey}
 														/>
 													</column>
-													<column>
-														<h6 className="fw-bold mb-0">p:</h6>
-														<input
-															onChange={addPKey}
-															className="form-control"
-															type="text"
-															id="name-1"
-															name="Key_encrypt"
-															placeholder="Z_p"
-															value={pKey}
-														/>
-													</column>
+													
 													<column>
 														<h6 className="fw-bold mb-0">Beta:</h6>
 														<input
@@ -290,27 +262,16 @@ const ElGammal = () => {
 													<column>
 														<h6 className="fw-bold mb-0">x:</h6>
 														<input
-															onChange={addXKey}
+															onChange={addAKey}
 															className="form-control"
 															type="password"
 															id="name-1"
 															name="Key_encrypt"
 															placeholder="inverse of e"
-															value={xKey}
+															value={aKey}
 														/>
 													</column>
-													<column>
-														<h6 className="fw-bold mb-0">k:</h6>
-														<input
-															onChange={addKKey}
-															className="form-control"
-															type="password"
-															id="name-1"
-															name="Key_encrypt"
-															
-															value={kKey}
-														/>
-													</column>
+													
 													
 												</row>
 												</div>
@@ -339,4 +300,4 @@ const ElGammal = () => {
 	);
 };
 
-export default ElGammal;
+export default Menezes;

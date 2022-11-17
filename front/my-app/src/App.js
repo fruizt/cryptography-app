@@ -15,6 +15,7 @@ import SDES from "./pages/SDES";
 import RSA from "./pages/RSA";
 import ElGamal from "./pages/ElGammal";
 import Rabin from "./pages/Rabin";
+import Menezes from "./pages/Menezes";
 
 
 function App() {
@@ -41,7 +42,7 @@ function App() {
                     </li>
                     <li className="nav-item">
                         <div className="nav-item dropdown nav-link active"><NavLink className="dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" to="/">Public key Methods&nbsp;</NavLink>
-                            <div className="dropdown-menu dropdown-menu-dark"><NavLink className="dropdown-item" to="/rsa">RSA</NavLink><NavLink className="dropdown-item" to="/gammal">ElGamal</NavLink><NavLink className="dropdown-item" to="/rabin">Rabin</NavLink></div>
+                            <div className="dropdown-menu dropdown-menu-dark"><NavLink className="dropdown-item" to="/rsa">RSA</NavLink><NavLink className="dropdown-item" to="/gammal">ElGamal</NavLink><NavLink className="dropdown-item" to="/menezes">Menezes-Vanstone</NavLink><NavLink className="dropdown-item" to="/rabin">Rabin</NavLink></div>
                         </div>
                     </li>
                     <li className="nav-item"></li>
@@ -66,6 +67,8 @@ function App() {
           <Route path="/rsa" element={<RSA />} />
           <Route path="/gammal" element={<ElGamal />} />
           <Route path="/rabin" element={<Rabin />} />
+          <Route path="/menezes" element={<Menezes />} />
+          
       </Routes>
       <footer className="bg-dark">
         <div className="container py-4 py-lg-5">

@@ -85,6 +85,12 @@ class ElGamalDecryptModel(BaseModel):
     x: int 
 class ElGamalv2EncryptModel(BaseModel):
     text: str
+    beta:str
+    alpha: str
+class ElGamalv2DecryptModel(BaseModel):
+    text: str
+    a:int
+    
 
 
 
@@ -97,7 +103,7 @@ class RabinDecryptModel(BaseModel):
     text: str
     p: int 
     q: int
-    B: int 
+    b: int 
 
 #RSA --------------
 class RSAEncryptModel(BaseModel):

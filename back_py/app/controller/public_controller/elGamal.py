@@ -10,17 +10,17 @@ def generateKeyGamal(size=256):
     generator=int(key.g)
     beta=int(key.y)
     x=int(key.x)
-    k=randint(2**16,2**32)
-    return {"p":p,"generator":generator,"beta":beta,"x":x,"k":k}
+    k=randint(2**16,p-1)
+    return {"p":str(p),"generator":str(generator),"beta":str(beta),"x":str(x),"k":str(k)}
 
 def encryptGamal(text,K):
     
     text+=" "*(5-len(text)%5)
     num_iter = len(text)/5
-    generator=K.generator
-    k=K.k
-    p=K.p
-    beta=K.beta
+    generator=int(K.generator)
+    k=int(K.k)
+    p=int(K.p)
+    beta=int(K.beta)
     enc_str =[]
     for i in range(0,int(num_iter)):
         

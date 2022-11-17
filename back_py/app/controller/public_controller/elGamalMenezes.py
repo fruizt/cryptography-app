@@ -23,17 +23,19 @@ class Elliptic():
                     "beta":f"{self.beta.x},{self.beta.y}"
                         },
                 "private":{
-                    "a":self.a._value   
+                    "a":str(self.a._value)   
                         }
                 }
         return result
 
-    def setPublicKey(self,key):
-        self.beta=ECC.EccPoint(key.x1, key.y1, curve='ed25519')
-        self.alpha=ECC.EccPoint(key.x2, key.y2, curve='ed25519')
+    def setPublicKey(self,alpha,beta):
+        x1,y1=alpha.split(",")
+        x2,y2=beta.split(",")
+        self.alpha=ECC.EccPoint(int(x1), int(y1), curve='ed25519')
+        self.beta=ECC.EccPoint(int(x2), int(y2), curve='ed25519')
 
     def setPrivateKey(self,key):
-        self.a=key.a
+        self.a=int(key)
         
     #method to encrypt
     def encryptElliptic(self,text):

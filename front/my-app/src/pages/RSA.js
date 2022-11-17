@@ -7,9 +7,9 @@ import Typography from "@mui/material/Typography";
 const testURL = "http://localhost:8000";
 const prod = "https://quickstart-image-b6b23rgmpa-uc.a.run.app/";
 
-const suggestKeyURL = prod + "/modern/sdes/suggestKey";
-const encryptTextURL = prod + "/modern/sdes/encrypt";
-const decryptTextURL = prod + "/modern/sdes/decrypt";
+const suggestKeyURL = testURL + "/public/suggest/keyrsa";
+const encryptTextURL = testURL + "/public/encrypt/rsa";
+const decryptTextURL = testURL + "/public/decrypt/rsa";
 
 const style = {
 	position: "absolute",
@@ -17,59 +17,92 @@ const style = {
 	left: "50%",
 	transform: "translate(-50%, -50%)",
 	width: 400,
-	bgcolor: "#282c34",
+	bgcolor: "background.blue",
 	border: "2px #000",
 	borderRadius: 10,
 	boxShadow: 24,
 	p: 4,
 };
-
 const RSA = () => {
 	const [clearTextText, setClearTextText] = useState("");
-	const [keyValueText, setkeyValueText] = useState("");
+	const [nKey, setNKey] = useState("");
+	const [eKey, setEKey] = useState("");
+	const [pKey, setPKey] = useState("");
+	const [qKey, setQKey] = useState("");
+	const [dKey, setDKey] = useState("");
 	const [optionText, setOptionText] = useState("E");
 	const [encryptTextText, setencryptTextText] = useState("");
-	const [permutation, setPermutation] = useState("12345678");
 	const [open, setOpen] = React.useState(false);
 
-	const handleOpen = () => setOpen(true);
+	
 	const handleClose = () => setOpen(false);
 
-	const addPermutationText = (val) => {
-		setPermutation(val.target.value);
+	const addEKey = (val) => {
+		setEKey(val.target.value);
+	};
+	const addNKey = (val) => {
+		setNKey(val.target.value);
+	};
+	const addDKey = (val) => {
+		setDKey(val.target.value);
+	};
+	const addPKey = (val) => {
+		setPKey(val.target.value);
 	};
 
-	const copyText = (val) => {
-		console.log(encryptTextText);
+	const addQKey = (val) => {
+		setQKey(val.target.value);
+	};
+	const getRandomKey=() =>{
 
+		axios.post(suggestKeyURL,{}).then((response) => {
+			setEKey(response.data.public.e);
+			setNKey(response.data.public.n);
+			setPKey(response.data.private.p);
+			setQKey(response.data.private.q);
+			setDKey(response.data.private.d)
+			console.log(response.data);
+			setOpen(true);
+		});
+		
+		
+	}
+
+
+
+	const copyText = (val) => {
+		
 		setClearTextText(encryptTextText);
 	};
 	const addInputText = (val) => {
 		setClearTextText(val.target.value);
 	};
 
-	const addKeyText = (val) => {
-		setkeyValueText(val.target.value);
-		console.log(val.target.value);
-	};
 
 	const addOptionText = (val) => {
 		setOptionText(val.target.value);
 		console.log(val.target.value);
 	};
 	const cipherText = () => {
-		let data = {
-			key: keyValueText,
-			encrypt: clearTextText,
-			permutation: permutation,
-		};
+		
 
 		if (optionText === "E") {
+			let data = {
+				text: clearTextText,
+				e: eKey,
+				n: nKey,
+			};
 			axios.post(encryptTextURL, data).then((response) => {
 				setencryptTextText(response.data.encrypt);
 			});
 		} else {
-			console.log(">>");
+			let data = {
+				text: clearTextText,
+				e: eKey,
+				d: dKey,
+				p: pKey,
+				q: qKey,
+			};
 			axios.post(decryptTextURL, data).then((response) => {
 				setencryptTextText(response.data.decrypt);
 				console.log(response.data.decrypt);
@@ -93,18 +126,12 @@ const RSA = () => {
 						Save your credentials for decrypt your information level.
 						<ul>
 							<li>
-								Private key:{" "}
+								Private key " d ":{ " "}
 								<input
 									type="text"
 									id="uname"
 									name="name"
-									value="MIIBOgIBAAJBAKj34GkxFhD90vcNLYLInFEX6Ppy1tPf9Cnzj4p4WGeKLs1Pt8Qu
-											KUpRKfFLfRYC9AIKjbJTWit+CqvjWYzvQwECAwEAAQJAIJLixBy2qpFoS4DSmoEm
-											o3qGy0t6z09AIJtH+5OeRV1be+N4cDYJKffGzDa88vQENZiRm0GRq6a+HPGQMd2k
-											TQIhAKMSvzIBnni7ot/OSie2TmJLY4SwTQAevXysE2RbFDYdAiEBCUEaRQnMnbp7
-											9mxDXDf6AU0cN/RPBjb9qSHDcWZHGzUCIG2Es59z8ugGrDY+pxLQnwfotadxd+Uy
-											v/Ow5T0q5gIJAiEAyS4RaI9YG8EWx/2w0T67ZUVAw8eOMB6BIUg0Xcu+3okCIBOs
-											/5OiPgoTdSy7bcF9IGpSE8ZgGKzgYQVZeN97YE00"
+									value={dKey}
 									readonly
 									style={{ border: "none", background: "transparent", color: "white" }}
 								/>
@@ -115,7 +142,7 @@ const RSA = () => {
 									type="text"
 									id="uname"
 									name="name"
-									value="123123123123"
+									value={pKey}
 									readonly
 									style={{ border: "none", background: "transparent", color: "white" }}
 								/>
@@ -126,7 +153,7 @@ const RSA = () => {
 									type="text"
 									id="uname"
 									name="name"
-									value="123123123123"
+									value={qKey}
 									readonly
 									style={{ border: "none", background: "transparent", color: "white" }}
 								/>
@@ -173,38 +200,7 @@ const RSA = () => {
 											></textarea>
 										</div>
 										<div className="mb-3">
-											<div className="mb-3">
-												<div className="mb-3">
-													<h6 className="fw-bold mb-0">Pulbic key:</h6>
-													<input
-														onChange={addPermutationText}
-														className="form-control"
-														type="text"
-														id="name-1"
-														name="Key_encrypt"
-														placeholder="example: 0,1,1,0 (size 2x2)"
-														value={permutation}
-													/>
-												</div>
-												<h6 className="fw-bold mb-0">Key:</h6>
-												<input
-													onChange={addKeyText}
-													className="form-control"
-													type="text"
-													id="name-1"
-													name="Key_encrypt"
-													placeholder="example: 0,1,1,0 (size 2x2)"
-													value={keyValueText}
-												/>
-											</div>
-
-											<div
-												onClick={() => handleOpen()}
-												className="btn btn-primary shadow d-block w-100"
-												style={{ marginBottom: "20px" }}
-											>
-												Suggest key and permutation
-											</div>
+											
 											<h6 className="fw-bold mb-0">Option:</h6>
 											<select
 												onChange={addOptionText}
@@ -246,12 +242,94 @@ const RSA = () => {
 										<div className="mb-3"></div>
 
 										<div className="mb-3">
-											<div>
-												<div onClick={copyText} className="btn btn-primary shadow d-block w-100">
-													{"<- Copy"}
+												<div className="mb-3">
+													{optionText=="E" &&
+													<div>
+													<h6 className="fw-bold mb-0">Public key</h6>
+													<row>
+													<column>
+														<h6 className="fw-bold mb-0">n:</h6>
+														<input
+															onChange={addNKey}
+															className="form-control"
+															type="text"
+															id="name-1"
+															name="Key_encrypt"
+															placeholder="value of n"
+															value={nKey}
+														/>
+													</column>
+													<column>
+														<h6 className="fw-bold mb-0">e:</h6>
+														<input
+															onChange={addEKey}
+															className="form-control"
+															type="text"
+															id="name-1"
+															name="Key_encrypt"
+															placeholder="exponent"
+															value={eKey}
+														/>
+													</column>
+												</row>
 												</div>
+													}
+													{optionText=="D" &&
+													<div>
+													<h6 className="fw-bold mb-0">Private key</h6>
+													<row>
+													<column>
+														<h6 className="fw-bold mb-0">d:</h6>
+														<input
+															onChange={addDKey}
+															className="form-control"
+															type="password"
+															id="name-1"
+															name="Key_encrypt"
+															placeholder="inverse of e"
+															value={dKey}
+														/>
+													</column>
+													<column>
+														<h6 className="fw-bold mb-0">p:</h6>
+														<input
+															onChange={addPKey}
+															className="form-control"
+															type="password"
+															id="name-1"
+															name="Key_encrypt"
+															
+															value={pKey}
+														/>
+													</column>
+													<column>
+														<h6 className="fw-bold mb-0">q:</h6>
+														<input
+															onChange={addQKey}
+															className="form-control"
+															type="password"
+															id="name-1"
+															name="Key_encrypt"
+															
+															value={qKey}
+														/>
+													</column>
+												</row>
+												</div>
+													}
+												</div>
+													
+											<div
+												onClick={getRandomKey}
+												className="btn btn-primary shadow d-block w-100"
+												style={{ marginBottom: "20px" }}
+											>
+												Random key 
+												</div> 
+											<div className="mb-3">
+												<div><div onClick={copyText} className="btn btn-primary shadow d-block w-100" >{"<- Copy"}</div></div>	
 											</div>
-										</div>
+											</div>
 									</form>
 								</div>
 							</div>

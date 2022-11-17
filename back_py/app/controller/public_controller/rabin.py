@@ -84,12 +84,12 @@ def suggestKeyRabin(size):
     n=p*q
     B=random.randint(2**16,n)
     return {"public":{
-                "n":n,
-                "B": B
+                "n":str(n),
+                "b": str(B)
             },
             "private":{
-                "p":p,
-                "q":q
+                "p":str(p),
+                "q":str(q)
             }
             }
 

@@ -13,13 +13,13 @@ def int_from_bytes(xbytes: bytes) -> int:
 def random_keygen_rsa(size):
   (pub_key, priv_key) = key.newkeys(size)
   return {"public":{
-                "n":pub_key.n,
-                "e": pub_key.e
+                "n":str(pub_key.n),
+                "e": str(pub_key.e)
             },
             "private":{
-                "d":priv_key.d,
-                "p":priv_key.p,
-                "q":priv_key.q
+                "d":str(priv_key.d),
+                "p":str(priv_key.p),
+                "q":str(priv_key.q)
             }
             }
 
@@ -55,7 +55,7 @@ def encrypt_rsa(n,e,string):
 def decrypt_rsa(d,p,q,e, enc_str):
   priv_key=PrivateKey(p*q,e,d,p,q)
   decript_list = enc_str.split(',')
-
+  print(decript_list)
   dec_str = ''
   for i in decript_list:
     temp_i = int(i)
