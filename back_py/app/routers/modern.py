@@ -22,7 +22,7 @@ async def ceasar_cypher():
 async def ceasar_cypher(data : GammaPentagonalRequest):
     permutation=list(map(int,data.permutation.split("-")))
     init=list(map(int,data.init.split(",")))
-    system=GammaPentagonal(init,permutation,4,10)
+    system=GammaPentagonal(init,permutation,int(data.m),10)
 
     return {"scatterPlot":system.scatter_plot,"linePlot":system.lines_plot,"matrixPlot":system.matrix_plot}
 
@@ -30,7 +30,7 @@ async def ceasar_cypher(data : GammaPentagonalRequest):
 async def ceasar_cypher(data : GammaPentagonalRequest):
     permutation=list(map(int,data.permutation.split("-")))
     init=list(map(int,data.init.split(",")))
-    system=GammaPentagonal(init,permutation,4,10)
+    system=GammaPentagonal(init,permutation,int(data.m),10)
     encrypt_text=system.encryptGammaPentagonal(data.text)
     return {"encryptText":f"{encrypt_text}"[1:-1]}
 
@@ -38,7 +38,7 @@ async def ceasar_cypher(data : GammaPentagonalRequest):
 async def ceasar_cypher(data : GammaPentagonalRequest):
     permutation=list(map(int,data.permutation.split("-")))
     init=list(map(int,data.init.split(",")))
-    system=GammaPentagonal(init,permutation,4,10)
+    system=GammaPentagonal(init,permutation,int(data.m),10)
     lista = data.text.replace('[','')
     lista = lista.replace(' ','')
     lista = lista.split(']')

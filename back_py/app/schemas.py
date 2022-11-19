@@ -54,6 +54,7 @@ class GammaPentagonalRequest(BaseModel):
     permutation: str
     text: str
     init: str
+    m: str
 
 class AESImageRequest(BaseModel):
     file:  bytes = File(...)

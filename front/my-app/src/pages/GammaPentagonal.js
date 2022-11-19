@@ -10,13 +10,14 @@ const prod = "https://quickstart-image-b6b23rgmpa-uc.a.run.app";
 const graphtUrl = prod + "/modern/encrypt/gamma_graph";
 const encryptUrl = prod + "/modern/encrypt/gamma_pentagonal";
 const decryptUrl = prod + "/modern/decrypt/gamma_pentagonal";
-const suggestUrl = prod + "/modern/encrypt/gamma_suggest"
+const suggestUrl = prod + "/modern/encrypt/gamma_suggest";
 
 const GammaPentagonal = () => {
 	const [clearText, setClearText] = useState("");
 	const [option, setOption] = useState("E");
 	const [encryptText, setencryptText] = useState("");
 	const [suggestKey, setsuggestKey] = useState("");
+	const [wordSize, setWordSize] = useState("4");
 	const [keyValue, setkeyValue] = useState("0-1-2-3-4-5-6-7-8-9");
 	const [initialPoints, setinitialPoints] = useState("0,0");
 	const [linePlot, setlinePlot] = useState([]);
@@ -31,6 +32,11 @@ const GammaPentagonal = () => {
 	const addKey = (val) => {
 		setkeyValue(val.target.value);
 		console.log(val.target.value);
+	};
+
+	const changeWordSize = (val) => {
+		setWordSize(val.target.value);
+		console.log(">> word size:", val.target.value);
 	};
 
 	const addInitialValues = (val) => {
@@ -50,16 +56,16 @@ const GammaPentagonal = () => {
 		});
 	};
 
-	const clear = () =>{
-		setClearText("")
-		setencryptText("")
-	}
+	const clear = () => {
+		setClearText("");
+		setencryptText("");
+	};
 
-	const copyText =val=>{
-        console.log(encryptText)
-        
-        setClearText(encryptText)
-    }
+	const copyText = (val) => {
+		console.log(encryptText);
+
+		setClearText(encryptText);
+	};
 
 	const cipher = () => {
 		let data = {
@@ -88,6 +94,7 @@ const GammaPentagonal = () => {
 			init: initialPoints,
 			permutation: keyValue,
 			text: "",
+			m: wordSize
 		};
 		axios.post(graphtUrl, data).then((response) => {
 			setlinePlot(response.data.linePlot);
@@ -100,7 +107,7 @@ const GammaPentagonal = () => {
 
 	useEffect(() => {
 		graph();
-	},[]);
+	}, []);
 
 	return (
 		<div>
@@ -139,6 +146,30 @@ const GammaPentagonal = () => {
 						<div className="col-md-6 col-xl-4">
 							<div>
 								<form className="p-3 p-xl-4" method="post">
+									<div className="mb-3">
+										<h6 className="fw-bold mb-0">Max Word Size:</h6>
+										<input
+											onChange={changeWordSize}
+											className="form-control"
+											type="text"
+											id="name-1"
+											name="Key_encrypt"
+											placeholder="Example: 4"
+											value={wordSize}
+										/>
+									</div>
+									<div>
+										<div
+											onClick={() => {
+												// cipher();
+												graph();
+											}}
+											className="btn btn-primary shadow d-block w-100"
+											title="if not written it will be auto generated"
+										>
+											Set Word Size{" "}
+										</div>
+									</div>
 									<div className="mb-3">
 										<h6 className="fw-bold mb-0">Permutation:</h6>
 										<input
@@ -203,7 +234,7 @@ const GammaPentagonal = () => {
 						<div className="col-md-6 col-xl-4">
 							<div>
 								<form className="p-3 p-xl-4" method="post">
-								<div className="mb-3">
+									<div className="mb-3">
 										<h6 className="fw-bold mb-0">Initial Points:</h6>
 										<input
 											onChange={addInitialValues}
@@ -228,6 +259,19 @@ const GammaPentagonal = () => {
 										</div>
 									</div>
 
+									
+									<div className="mb-3">
+										<div style={{ marginTop: "20px" }}>
+											<div onClick={suggest} className="btn btn-primary shadow d-block w-100">
+												Suggest Permutation
+											</div>
+										</div>
+									</div>
+									<div style={{ marginTop: "20px" }}>
+										<div onClick={clear} className="btn btn-primary shadow d-block w-100">
+											Clear{" "}
+										</div>
+									</div>
 									<div className="mb-3"></div>
 									<div className="mb-3">
 										<h6 className="fw-bold mb-0">Text result:</h6>
@@ -251,19 +295,6 @@ const GammaPentagonal = () => {
 									<div className="mb-3"></div>
 									<div className="mb-3"></div>
 									<div className="mb-1"></div>
-									<div className="mb-3">
-										<div style={{marginTop:"20px"}}>
-											<div onClick={suggest} className="btn btn-primary shadow d-block w-100">
-												Suggest Permutation
-											</div>
-										</div>
-									</div>
-									<div  style={{marginTop:"20px"}}>
-										<div onClick={clear} className="btn btn-primary shadow d-block w-100">
-											Clear{" "}
-										</div>
-									</div>
-									
 								</form>
 							</div>
 						</div>
