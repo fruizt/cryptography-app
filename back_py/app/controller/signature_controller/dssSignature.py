@@ -34,15 +34,8 @@ class DssSignature():
         self.alpha=self.key.pointQ
         self.a=self.key.d
         self.beta=self.a*self.alpha
-        result={"public":{
-                    "alpha":f"{self.alpha.x},{self.alpha.y}",
-                    "beta":f"{self.beta.x},{self.beta.y}"
-                        },
-                "private":{
-                    "a":int(self.a) 
-                        }
-                }
-        return result
+        
+        return {""}
 
     def setPublicKey(self,keyPublic):
         self.public = ECC.import_key(keyPublic)
