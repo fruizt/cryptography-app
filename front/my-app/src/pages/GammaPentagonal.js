@@ -72,6 +72,7 @@ const GammaPentagonal = () => {
 			text: clearText,
 			init: initialPoints,
 			permutation: keyValue, // creo que es mejor que se reciba la permutacion asi 0123456789
+			m: wordSize
 		};
 		console.log(data);
 
