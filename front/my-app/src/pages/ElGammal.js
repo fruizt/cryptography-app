@@ -295,7 +295,7 @@ const ElGammal = () => {
 																<h6 className="fw-bold mb-0">x:</h6>
 																<input
 																	onChange={addXKey}
-																	className="form-control"
+																	className="form-control password"
 																	type="password"
 																	id="name-1"
 																	name="Key_encrypt"
@@ -307,7 +307,7 @@ const ElGammal = () => {
 																<h6 className="fw-bold mb-0">k:</h6>
 																<input
 																	onChange={addKKey}
-																	className="form-control"
+																	className="form-control password"
 																	type="password"
 																	id="name-1"
 																	name="Key_encrypt"
@@ -315,6 +315,10 @@ const ElGammal = () => {
 																/>
 															</column>
 														</row>
+														<h6 className="fw-bold mb-0">
+															<input type="checkbox" onclick={showSecret} onChange={showSecret} />{" "}
+															show secret{" "}
+														</h6>
 													</div>
 												)}
 											</div>

@@ -39,7 +39,7 @@ class DssSignature():
                     "beta":f"{self.beta.x},{self.beta.y}"
                         },
                 "private":{
-                    "a":self.a._value   
+                    "a":int(self.a) 
                         }
                 }
         return result

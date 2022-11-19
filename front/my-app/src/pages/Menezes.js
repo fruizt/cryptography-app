@@ -85,6 +85,17 @@ const Menezes = () => {
 		document.body.removeChild(element);
 	};
 
+	const showSecret = () => {
+		const elements = document.getElementsByClassName("form-control password");
+		for (let i = 0; i < elements.length; i++) {
+			if (elements[i].type === "password") {
+				elements[i].type = "text";
+			} else {
+				elements[i].type = "password";
+			}
+		}
+	};
+
 	const cipherText = () => {
 		if (optionText === "E") {
 			let data = {
@@ -252,7 +263,7 @@ const Menezes = () => {
 																<h6 className="fw-bold mb-0">x:</h6>
 																<input
 																	onChange={addAKey}
-																	className="form-control"
+																	className="form-control password"
 																	type="password"
 																	id="name-1"
 																	name="Key_encrypt"
@@ -261,6 +272,10 @@ const Menezes = () => {
 																/>
 															</column>
 														</row>
+														<h6 className="fw-bold mb-0">
+															<input type="checkbox" onclick={showSecret} onChange={showSecret} />{" "}
+															show secret{" "}
+														</h6>
 													</div>
 												)}
 											</div>
