@@ -53,7 +53,7 @@ function App() {
                         </div>
                     </li>
                     <li className="nav-item"></li>
-                    <li className="nav-item"><a className="nav-link" href="shift.html">Github</a></li>
+                    <li className="nav-item"><a className="nav-link" href="https://github.com/F4B123/cryptography">Github</a></li>
                 </ul>
             </div>
         </div>
